@@ -12,7 +12,7 @@ public class AdministratorView extends View {
         JFrame frame = new JFrame();
         frame.setBounds(300,300,300,300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        //
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("Admin");
         panel.add(label,BorderLayout.CENTER);
