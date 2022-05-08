@@ -130,8 +130,10 @@ public class Main {
 
     //users.txt:
     //format for saved user data:
-    //name;username;password;type; (note: type can be 'admin' or 'student' or 'instructor')
-    //Eg. radi;b00090044;radiriyas;password123;admin;
+    //type;name;ID;username;password; (note: type can be 'admin' or 'student' or 'instructor')
+    //Eg. admin;radi;b00090044;radiriyas;password123;
+    // instructor: type;name;ID;username;password;dept
+    // student: type;name;ID;username;password;major
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password,type;

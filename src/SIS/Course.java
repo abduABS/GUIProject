@@ -11,16 +11,19 @@ public class Course {
     private ArrayList<String> students = new ArrayList<String>();
     private ArrayList<Double> grades = new ArrayList<Double>();
 
-    public double getStudentGrade(String _id){
-        double g = 0;
-
-        return g;
+    public Double getStudentGrade(String _id){
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).equals(_id)) {
+                return grades.get(i);
+            }
+        }
+        return -1.0d;
     }
 
     public Course(String name, String number, int credits) {
         this.name = name;
         this.number = number;
-        this.code = code;
+        this.credits = credits;
     }
 
     public void printDetails() {
@@ -72,9 +75,6 @@ public class Course {
         students.add(s.getId());
     }
 
-    private void generateCode() {
-        code = department + number;
-    }
 
     public String toString() {
         return ("Department: " + department + " Number: " + number + " Instructor: "
