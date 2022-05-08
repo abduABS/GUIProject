@@ -2,10 +2,10 @@ package SIS;
 
 public abstract class Model {
 
-    String name;
-    String ID;
-    String username;
-    String password;
+    private String name;
+    private String ID;
+    private String username;
+    private String password;
 
     public Model(){
         name = "Example";

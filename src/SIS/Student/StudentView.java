@@ -10,12 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class StudentView extends View {
-
+    private Object[][] obArr;
     private StudentModel model;
-    public StudentView(StudentModel _model){
+
+    public StudentView(StudentModel _model) {
         model = _model;
     }
 
@@ -31,56 +33,77 @@ public class StudentView extends View {
         //panel.add(label, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout());
-        panel.add(btnPanel,BorderLayout.SOUTH);
-        frame.setContentPane(panel);
+        panel.add(btnPanel, BorderLayout.SOUTH);
 
         JMenuBar menuBar = new JMenuBar();
+
         JMenu optionsMenu = new JMenu("Options");
+        menuBar.add(optionsMenu);
         JMenuItem loadItem = new JMenuItem("Load Course(s)");
         loadItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ArrayList<ArrayList<Object>> objects = new
-                        ArrayList<ArrayList<Object>>();
-                ArrayList<Object> header = new ArrayList<Object>(6);
-                header.add("Name");
-                header.add(model.getName());
-                header.add("ID");
-                header.add(model.getId());
-                header.add("Major");
-                header.add(model.getMajor());
-                objects.add(header);
 
-                //TODO: Add courses of a student from a file
-                String s = null;
-
-                StringTokenizer st = new StringTokenizer(s,";\n");
-                while(st.hasMoreTokens()) {
-                    ArrayList<Object> ob = new ArrayList<Object>(6);
-                    ob.add(st.nextToken());
-                    ob.add(st.nextToken());
-                    ob.add(st.nextToken());
-                    objects.add(ob);
-                }
-                Object[][] obArr = new Object[objects.size()]
-                        [objects.get(0).size()];
-                for(int i1 =0; i1 < objects.size(); i1++) {
-                    for(int j =0; j < objects.get(0).size(); j++) {
-                        obArr[i1][j] = objects.get(i1).get(j);
-                    }
-                }
-                JTable table = new JTable();
-                table.setModel(new DefaultTableModel(obArr, null) {
-                    boolean[] columnEditables = new boolean[] {
-                            false, false, false, false
-                    };
-                    public boolean isCellEditable(int row, int column) {
-                        return columnEditables[column];
-                    }
-                });
-                JScrollPane scrollPane = new JScrollPane( table );
-                panel.add( scrollPane, BorderLayout.CENTER );
             }
         });
+
+        ArrayList<ArrayList<Object>> objects = new
+                ArrayList<ArrayList<Object>>();
+        ArrayList<Object> header = new ArrayList<Object>();
+        header.add("Name");
+        header.add(model.getName());
+        header.add("ID");
+        header.add(model.getId());
+        header.add("Major");
+        header.add(model.getMajor());
+        objects.add(header);
+        ArrayList<Object> header2 = new ArrayList<Object>();
+        header2.add("Semester");
+        header2.add("Spring 2022");
+        objects.add(header2);
+        ArrayList<Object> header3 = new ArrayList<Object>();
+        header3.add("Courses");
+        header3.add("Name");
+        header3.add("Number");
+        header3.add("Courses");
+        header3.add("Grade");
+        objects.add(header3);
+
+
+        //TODO: Add courses of a student from a file
+        String s = null;
+
+//                StringTokenizer st = new StringTokenizer(s,";\n");
+//                int i =1;
+//                while(st.hasMoreTokens()) {
+//                    ArrayList<Object> ob = new ArrayList<Object>(6);
+//                    ob.add(i++);
+//                    ob.add(st.nextToken());
+//                    ob.add(st.nextToken());
+//                    ob.add(st.nextToken());
+//                    objects.add(ob);
+//                }
+
+        obArr = new Object[objects.size()]
+                [objects.get(0).size()];
+        for (int i1 = 0; i1 < objects.size(); i1++) {
+            for (int j = 0; j < objects.get(i1).size(); j++) {
+                obArr[i1][j] = objects.get(i1).get(j);
+            }
+        }
+
+        JTable table = new JTable(obArr, new String[]{"1", "2", "3", "4", "5", "6"});
+        table.setModel(new DefaultTableModel(obArr, new String[]{"1", "2", "3", "4", "5", "6"}) {
+            boolean[] columnEditables = new boolean[]{
+                    false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int row, int column) {
+                return columnEditables[column];
+            }
+        });
+        JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
         JMenuItem addItem = new JMenuItem("Add Course(s)");
         addItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -126,6 +149,8 @@ public class StudentView extends View {
         optionsMenu.addSeparator();
         optionsMenu.add(saveItem);
 
+        frame.setJMenuBar(menuBar);
+        frame.setContentPane(panel);
         frame.setVisible(true);
     }
 

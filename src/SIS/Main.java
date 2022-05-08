@@ -128,7 +128,7 @@ public class Main {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password,type;
-        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\users.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\Test\\src\\SIS\\users.txt"));
         StringTokenizer st;
         for(int i = 0; scan.hasNextLine();i++){
             st = new StringTokenizer(scan.nextLine(), ";");
