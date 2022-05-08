@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 
 public class Main {
     static ArrayList<Controller> users = new ArrayList<>();
+    static ArrayList<Course> courses = new ArrayList<Course>();
+    //
     static int flag = 0;
     static int tries = 0;
 
@@ -120,6 +122,11 @@ public class Main {
         //readListOfAllInstructors;
         //readCoursesFromThisSemester();
     }
+
+    //format for spring2022.txt:
+    //numStudents;name;number;department;instructor;credits;
+    //IDs;
+    //grades;
 
     //users.txt:
     //format for saved user data:

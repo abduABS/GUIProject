@@ -5,12 +5,11 @@ import java.util.*;
 public class Course {
     public int credits;
     public String name;
-    public int number;
-    public String code;
+    public String number;
     public String department;
     public String instructor;
-    private ArrayList<StudentModel> students = new ArrayList<StudentModel>();
-    private ArrayList<Grade> grades = new ArrayList<Grade>();
+    private ArrayList<String> students = new ArrayList<String>();
+    private ArrayList<Double> grades = new ArrayList<Double>();
 
     public double getStudentGrade(String _id){
         double g = 0;
@@ -18,7 +17,7 @@ public class Course {
         return g;
     }
 
-    public Course(String name, String code, int number) {
+    public Course(String name, String number, int credits) {
         this.name = name;
         this.number = number;
         this.code = code;
@@ -26,7 +25,7 @@ public class Course {
 
     public void printDetails() {
         for (int i = 0; i < grades.size(); i++) {
-            System.out.println("Student id: " + students.get(i).getId() + " "
+            System.out.println("Student id: " + students.get(i) + " "
                     + grades.get(i));
         }
     }
@@ -35,13 +34,8 @@ public class Course {
         return name;
     }
 
-    public long getNumber() {
+    public String getNumber() {
         return number;
-    }
-
-    public String getCode() {
-        return code;
-
     }
 
     public String getDepartment() {
@@ -52,7 +46,7 @@ public class Course {
         return instructor;
     }
 
-    public ArrayList<StudentModel> getStudents() {
+    public ArrayList<String> getStudents() {
         return students;
     }
 
@@ -61,7 +55,7 @@ public class Course {
         name = _n;
     }
 
-    public void setNumber(int _n) {
+    public void setNumber(String _n) {
         number = _n;
     }
 
@@ -75,7 +69,7 @@ public class Course {
 
     public void addStudent(StudentModel s) {
 
-        students.add(s);
+        students.add(s.getId());
     }
 
     private void generateCode() {
@@ -83,8 +77,7 @@ public class Course {
     }
 
     public String toString() {
-        generateCode();
-        return ("Department: " + department + " Number: " + number + " Course code: " + code + " Instructor: "
+        return ("Department: " + department + " Number: " + number + " Instructor: "
                 + instructor);
     }
 
