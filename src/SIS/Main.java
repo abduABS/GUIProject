@@ -5,6 +5,8 @@ import SIS.Student.*;
 import SIS.Instructor.*;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public class Main {
     static int flag = 0;
     static int tries = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         /*
         Required Files:
@@ -109,7 +111,7 @@ public class Main {
 
 
     //function to read data from textfiles:
-    public static void readAllData(){
+    public static void readAllData() throws FileNotFoundException {
         readRegisteredUsers();
 
 
@@ -124,23 +126,18 @@ public class Main {
     //name;username;password;type; (note: type can be 'admin' or 'student' or 'instructor')
     //Eg. radi;b00090044;radiriyas;password123;admin;
 
-    public static void readRegisteredUsers() {
+    public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password,type;
-
-        Scanner scan = new Scanner("C:\\Users\\abdus\\IdeaProjects\\Test\\src\\SIS\\Student\\StudentView.java");
-        System.out.println(scan.nextLine());
+        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\users.txt"));
         StringTokenizer st;
         for(int i = 0; scan.hasNextLine();i++){
             st = new StringTokenizer(scan.nextLine(), ";");
-            for (int j = 0; j<5; j++) {
                 name = st.nextToken();
-                System.out.println(name);
                 id = st.nextToken();
                 username = st.nextToken();
                 password = st.nextToken();
                 type = st.nextToken();
                 users.add(createUserObject(name,id, username,password,type));
-            }
         }
         scan.close();
     }
