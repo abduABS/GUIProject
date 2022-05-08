@@ -1,26 +1,36 @@
 package SIS.Student;
 
 import SIS.Controller;
+import SIS.Model;
+import SIS.View;
 
 public class StudentController extends Controller {
     private StudentModel model;
     private StudentView view;
-    StudentController(){
 
+
+    public StudentController(){
+        model = new StudentModel();
+        view = new StudentView();
     }
-    StudentController(StudentModel m, StudentView v){
+    public StudentController(StudentModel m, StudentView v){
         model = m;
         view = v;
     }
-    public void getView(){
 
-    }
-    public void setView(){
-
+    @Override
+    public View view() {
+        return view;
     }
 
     @Override
-    public void login() {
+    public Model getModel() {
+        return model;
+    }
+
+    @Override
+    public void setModel() {
 
     }
+
 }

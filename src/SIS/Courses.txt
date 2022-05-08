@@ -1,0 +1,5 @@
+CS320;Data Structures;3
+PC101;Intro to Physics;4
+CH102;Organic Chemistry;2
+CS220;Intro to GUI;3
+BS432;Business Project 1;7

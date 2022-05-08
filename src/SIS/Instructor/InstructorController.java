@@ -1,15 +1,17 @@
 package SIS.Instructor;
 
 import SIS.Controller;
-import SIS.Student.StudentModel;
+import SIS.Model;
+import SIS.View;
 
 public class InstructorController extends Controller {
     private InstructorModel model;
     private InstructorView view;
-    InstructorController(){
-
+    public InstructorController(){
+        model = new InstructorModel();
+        view = new InstructorView();
     }
-    InstructorController(InstructorModel m, InstructorView v){
+    public InstructorController(InstructorModel m, InstructorView v){
        model = m;
        view = v;
     }
@@ -17,8 +19,19 @@ public class InstructorController extends Controller {
        view.getView();
     }
 
+
     @Override
-    public void login() {
+    public View view() {
+        return view;
+    }
+
+    @Override
+    public Model getModel() {
+        return model;
+    }
+
+    @Override
+    public void setModel() {
 
     }
 }

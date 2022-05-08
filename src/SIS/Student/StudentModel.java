@@ -17,14 +17,24 @@ public class StudentModel extends Model {
     ArrayList<StudentCourse> StudentCourse = new ArrayList<StudentCourse>();
 
     StudentModel(){
+        super();
         major = "N/A";
         GPA = -1;
     }
     public StudentModel(String _major, double _GPA)
     {
+        super();
         major = _major;
         GPA = _GPA;
     }
+
+    public StudentModel(String _name, String _id, String _username, String _password, String _major, double _GPA)
+    {
+        super(_name,_id,_username,_password);
+        major = _major;
+        GPA = _GPA;
+    }
+
 
     public String getMajor() {return major;}
     public void setMajor(String _major) { major = _major;}
