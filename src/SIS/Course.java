@@ -3,6 +3,7 @@ import SIS.Student.StudentModel;
 
 import java.util.*;
 public class Course {
+    public int credits;
     public String name;
     public int number;
     public String code;

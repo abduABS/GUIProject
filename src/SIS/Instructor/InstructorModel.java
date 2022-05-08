@@ -15,11 +15,10 @@ public class InstructorModel extends Model {
         this.courses = null;
     }
 
-    public InstructorModel(String name, String ID, String username, String password,
-                           String department, ArrayList<Course> courses) {
+    public InstructorModel(String name, String ID, String username, String password) {
         super(name, ID, username, password);
-        this.department = department;
-        this.courses = courses;
+//        this.department = department;
+//        this.courses = courses;
     }
 
     public String getDepartment() {

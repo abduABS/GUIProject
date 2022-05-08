@@ -18,6 +18,10 @@ public class AdministratorController extends Controller {
         view = v;
     }
 
+    public AdministratorController(String name, String id, String username, String password) {
+        model = new AdministratorModel(name,id, username,password);
+        view = new AdministratorView();
+    }
     public View view() {
         return view;
     }

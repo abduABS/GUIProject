@@ -27,6 +27,11 @@ public class StudentModel extends Model {
         GPA = _GPA;
     }
 
+    public StudentModel(String _name, String _id, String _username, String _password)
+    {
+        super(_name,_id,_username,_password);
+    }
+
     public StudentModel(String _name, String _id, String _username, String _password, String _major, double _GPA)
     {
         super(_name,_id,_username,_password);

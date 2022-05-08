@@ -5,7 +5,10 @@ import SIS.Student.*;
 import SIS.Instructor.*;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     static ArrayList<Controller> users = new ArrayList<>();
@@ -104,4 +107,54 @@ public class Main {
         }
     }
 
+
+    //function to read data from textfiles:
+    public static void readAllData(){
+        readRegisteredUsers();
+
+
+        //TODO:
+        //readListOfAllStudents;
+        //readListOfAllInstructors;
+        //readCoursesFromThisSemester();
+    }
+
+    //users.txt:
+    //format for saved user data:
+    //name;username;password;type; (note: type can be 'admin' or 'student' or 'instructor')
+    //Eg. radi;b00090044;radiriyas;password123;admin;
+
+    public static void readRegisteredUsers() {
+        String name, id, username, password,type;
+
+        Scanner scan = new Scanner("C:\\Users\\abdus\\IdeaProjects\\Test\\src\\SIS\\Student\\StudentView.java");
+        System.out.println(scan.nextLine());
+        StringTokenizer st;
+        for(int i = 0; scan.hasNextLine();i++){
+            st = new StringTokenizer(scan.nextLine(), ";");
+            for (int j = 0; j<5; j++) {
+                name = st.nextToken();
+                System.out.println(name);
+                id = st.nextToken();
+                username = st.nextToken();
+                password = st.nextToken();
+                type = st.nextToken();
+                users.add(createUserObject(name,id, username,password,type));
+            }
+        }
+        scan.close();
+    }
+
+    //function that creates a user object based on the type of user
+    public static Controller createUserObject(String name, String id, String username, String password, String type){
+
+        if (type.compareTo("admin") == 0)
+            return (new AdministratorController(name,id,username,password));
+        if (type.compareTo("student") == 0)
+            return (new StudentController(name,id,username,password));
+        if (type.compareTo("instructor") == 0)
+            return (new InstructorController(name,id,username,password));
+
+        return null;
+    }
 }

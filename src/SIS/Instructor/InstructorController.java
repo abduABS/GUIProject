@@ -15,6 +15,13 @@ public class InstructorController extends Controller {
        model = m;
        view = v;
     }
+
+    public InstructorController(String name, String id, String username, String password){
+        model = new InstructorModel(name,id,username,password);
+        view = new InstructorView();
+    }
+
+
     public void getView(){
        view.getView();
     }

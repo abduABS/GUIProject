@@ -18,12 +18,15 @@ public class AdministratorModel extends Model {
         allInstructors = null;
     }
 
+    //Removed from the parameters of the constructor below:
+    //ArrayList<StudentController> _allStudents,
+    //ArrayList<InstructorController> _allInstructors
+    //        this.allStudents = _allStudents;
+    //        this.allInstructors = _allInstructors;
     public AdministratorModel(String _name, String _ID, String _username,
-                              String _password, ArrayList<StudentController> _allStudents,
-                              ArrayList<InstructorController> _allInstructors) {
+                              String _password) {
         super(_name, _ID, _username, _password);
-        this.allStudents = _allStudents;
-        this.allInstructors = _allInstructors;
+
     }
 
     public ArrayList<StudentController> getAllStudents() {
