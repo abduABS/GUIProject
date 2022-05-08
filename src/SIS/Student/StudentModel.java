@@ -2,7 +2,6 @@ package SIS.Student;
 
 import SIS.Course;
 import SIS.Model;
-import SIS.StudentCourse;
 
 import java.util.ArrayList;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public class StudentModel extends Model {
     private String major =  "N/A";
     private double GPA = -1;
-    ArrayList<StudentCourse> StudentCourse = new ArrayList<StudentCourse>();
+    ArrayList<Course> StudentCourse = new ArrayList<Course>();
 
     StudentModel(){
         super();
@@ -46,7 +45,7 @@ public class StudentModel extends Model {
 
     }
     //implement:
-    public void getRegisteredCourses(){
-
+    public ArrayList<Course> getRegisteredCourses(){
+        return  StudentCourse;
     }
 }

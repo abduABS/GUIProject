@@ -17,6 +17,12 @@ public class Course {
         return g;
     }
 
+    public Course(String name, String code, int number) {
+        this.name = name;
+        this.number = number;
+        this.code = code;
+    }
+
     public void printDetails() {
         for (int i = 0; i < grades.size(); i++) {
             System.out.println("Student id: " + students.get(i).getId() + " "

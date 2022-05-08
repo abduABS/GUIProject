@@ -11,7 +11,7 @@ public class StudentController extends Controller {
 
     public StudentController(){
         model = new StudentModel();
-        view = new StudentView();
+        view = new StudentView(model);
     }
     public StudentController(StudentModel m, StudentView v){
         model = m;

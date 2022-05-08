@@ -41,9 +41,10 @@ public class Main {
         //TODO: Figure out the ArrayList functionality
 
         //TODO: Figure out efficent way to add people to database
-        users.add(new AdministratorController());
-        users.add(new StudentController());
-        users.add(new InstructorController());
+
+
+        readAllData();
+//        users.add(new AdministratorController());
 
         //Login Starts from here
         login();
@@ -79,10 +80,16 @@ public class Main {
         {
             //TODO: add validation for the username/password
             String username = userField.getText();
-            String password = "" + passField.getPassword();
+            String password = new String(passField.getPassword());
+            System.out.println("Text Username: " + username);
+            System.out.println("Text password: "+ password);
+
             for(int i =0;i < users.size();i++){
-                if(users.get(i).getModel().getId() == username && users.get(i).getModel().getPassword() == password)
+                System.out.println(users.get(i).getModel().getUsername());
+                System.out.println(users.get(i).getModel().getPassword());
+                if(users.get(i).getModel().getUsername().compareTo(username) == 0 && users.get(i).getModel().getPassword().compareTo(password) == 0)
                 {
+                    System.out.println("Validation true");
                     flag = 1;
                     users.get(i).view().getView();
                 }
