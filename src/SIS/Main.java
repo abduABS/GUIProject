@@ -9,7 +9,31 @@ public class Main {
     static int tries = 0;
 
     public static void main(String[] args) {
-        
+
+        /*
+        Required Files:
+        users.txt -> list of registered users and their login info
+        spring2022.txt -> list of current sem courses, students enrolled, grades, etc
+        since students have to be able to register for courses in future term, we can create a new textfile
+        that keeps track of courses available next sem - and still follow the same naming convention 'semester_name.txt'
+
+
+        potential program flow?
+
+        login  -> parse all common data for program - current sem courses, etc,
+
+        if student-> create a student thread -> retrieve grade from arraylist of current sem courses based
+            on his id and store in a StudentCourse object
+
+        if instructor -> create instructor thread
+                      -> retrieve list of registered courses from arraylist of current sem courses by
+                         cross-referencing his name
+
+        if admin -> create admin thread
+                 ->
+        */
+
+
         //TODO: Figure out the ArrayList functionality
         login();
         if(flag == 0)
