@@ -15,8 +15,9 @@ public class InstructorModel extends Model {
         this.courses = null;
     }
 
-    public InstructorModel(String name, String ID, String username, String password) {
+    public InstructorModel(String name, String ID, String username, String password, String dept) {
         super(name, ID, username, password);
+        this.department = dept;
 //        this.department = department;
 //        this.courses = courses;
     }

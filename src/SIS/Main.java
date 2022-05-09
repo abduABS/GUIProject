@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 
 public class Main {
     static ArrayList<Controller> users = new ArrayList<>();
-    static ArrayList<Course> courses = new ArrayList<Course>();
+    static ArrayList<Course> courses = new ArrayList<>();
     //
     static int flag = 0;
     static int tries = 0;
@@ -91,16 +91,14 @@ public class Main {
             System.out.println("Text Username: " + username);
             System.out.println("Text password: "+ password);
 
-            for(int i =0;i < users.size();i++){
-                System.out.println(users.get(i).getModel().getUsername());
-                System.out.println(users.get(i).getModel().getPassword());
-                if(users.get(i).getModel().getUsername().compareTo(username) == 0 && users.get(i).getModel().getPassword().compareTo(password) == 0)
-                {
+            for (Controller user : users) {
+                System.out.println(user.getModel().getUsername());
+                System.out.println(user.getModel().getPassword());
+                if (user.getModel().getUsername().compareTo(username) == 0 && user.getModel().getPassword().compareTo(password) == 0) {
                     System.out.println("Validation true");
                     flag = 1;
-                    users.get(i).view().getView();
-                }
-                else{
+                    user.view().getView();
+                } else {
                     tries++;
                 }
             }
@@ -115,6 +113,7 @@ public class Main {
     //function to read data from textfiles:
     public static void readAllData() throws FileNotFoundException {
         readRegisteredUsers();
+        readCoursesFromThisSemester();
 
 
         //TODO:
@@ -130,37 +129,61 @@ public class Main {
 
     //users.txt:
     //format for saved user data:
-    //type;name;ID;username;password; (note: type can be 'admin' or 'student' or 'instructor')
-    //Eg. admin;radi;b00090044;radiriyas;password123;
-    // instructor: type;name;ID;username;password;dept
-    // student: type;name;ID;username;password;major
+    //type;name;ID;username;password;additional (note: type can be 'admin' or 'student' or 'instructor')
+    //Eg. admin;radi;b00090044;radiriyas;password123;N/A
+    //instructor: type;name;ID;username;password;dept
+    //student: type;name;ID;username;password;major
 
     public static void readRegisteredUsers() throws FileNotFoundException {
-        String name, id, username, password,type;
-        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\Test\\src\\SIS\\users.txt"));
-        StringTokenizer st;
-        for(int i = 0; scan.hasNextLine();i++){
-            st = new StringTokenizer(scan.nextLine(), ";");
-                name = st.nextToken();
-                id = st.nextToken();
-                username = st.nextToken();
-                password = st.nextToken();
-                type = st.nextToken();
-                users.add(createUserObject(name,id, username,password,type));
+        String name, id, username, password,type, additional;
+        Scanner scan = new Scanner(new File("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\users.txt"));
+        StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
+        while(scan.hasNextLine() && st.hasMoreTokens()){
+            type = st.nextToken();
+            name = st.nextToken();
+            id = st.nextToken();
+            username = st.nextToken();
+            password = st.nextToken();
+            additional = st.nextToken();
+            users.add(createUserObject(name,id,username,password,type,additional));
         }
         scan.close();
     }
 
     //function that creates a user object based on the type of user
-    public static Controller createUserObject(String name, String id, String username, String password, String type){
+    public static Controller createUserObject(String name, String id, String username, String password, String type, String additional){
 
         if (type.compareTo("admin") == 0)
             return (new AdministratorController(name,id,username,password));
         if (type.compareTo("student") == 0)
-            return (new StudentController(name,id,username,password));
+            return (new StudentController(name,id,username,password,additional));
         if (type.compareTo("instructor") == 0)
-            return (new InstructorController(name,id,username,password));
+            return (new InstructorController(name,id,username,password,additional));
 
         return null;
+    }
+
+    public static void readCoursesFromThisSemester() throws FileNotFoundException {
+        int numStudents, credits;
+        String name, number, dept, instructor;
+        Scanner scan = new Scanner(new File("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\spring2022.txt"));
+        StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
+        while(scan.hasNextLine() && st.hasMoreTokens()){
+            numStudents = Integer.parseInt(st.nextToken());
+            name = st.nextToken();
+            number = st.nextToken();
+            dept = st.nextToken();
+            instructor = st.nextToken();
+            credits = Integer.parseInt(st.nextToken());
+            Course course = new Course(name, number, credits, dept, instructor);
+            for(int i = 0; i < numStudents; i++){
+                course.addStudent(st.nextToken());
+            }
+            for(int i = 0; i < numStudents; i++){
+                course.addGrade(Double.parseDouble(st.nextToken()));
+            }
+            courses.add(course);
+        }
+        scan.close();
     }
 }

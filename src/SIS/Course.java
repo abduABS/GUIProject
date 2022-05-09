@@ -26,6 +26,14 @@ public class Course {
         this.credits = credits;
     }
 
+    public Course(String name, String number, int credits, String department, String instructor) {
+        this.name = name;
+        this.number = number;
+        this.credits = credits;
+        this.department = department;
+        this.instructor = instructor;
+    }
+
     public void printDetails() {
         for (int i = 0; i < grades.size(); i++) {
             System.out.println("Student id: " + students.get(i) + " "
@@ -75,6 +83,14 @@ public class Course {
         students.add(s.getId());
     }
 
+    public void addStudent(String _id) {
+
+        students.add(_id);
+    }
+
+    public void addGrade(Double grade) {
+        grades.add(grade);
+    }
 
     public String toString() {
         return ("Department: " + department + " Number: " + number + " Instructor: "

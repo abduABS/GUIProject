@@ -18,8 +18,8 @@ public class StudentController extends Controller {
         view = v;
     }
 
-    public StudentController(String name, String id, String username, String password){
-        model = new StudentModel(name,id,username,password);
+    public StudentController(String name, String id, String username, String password, String major){
+        model = new StudentModel(name,id,username,password,major);
         view = new StudentView(model);
     }
     @Override

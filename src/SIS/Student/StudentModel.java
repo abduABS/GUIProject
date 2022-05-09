@@ -32,6 +32,12 @@ public class StudentModel extends Model {
         super(_name,_id,_username,_password);
     }
 
+    public StudentModel(String _name, String _id, String _username, String _password, String _major)
+    {
+        super(_name,_id,_username,_password);
+        major = _major;
+    }
+
     public StudentModel(String _name, String _id, String _username, String _password, String _major, double _GPA)
     {
         super(_name,_id,_username,_password);

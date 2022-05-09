@@ -16,8 +16,8 @@ public class InstructorController extends Controller {
        view = v;
     }
 
-    public InstructorController(String name, String id, String username, String password){
-        model = new InstructorModel(name,id,username,password);
+    public InstructorController(String name, String id, String username, String password, String dept){
+        model = new InstructorModel(name,id,username,password,dept);
         view = new InstructorView();
     }
 
