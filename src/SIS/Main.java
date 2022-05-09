@@ -136,7 +136,7 @@ public class Main {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password,type, additional;
-        Scanner scan = new Scanner(new File("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\users.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while(scan.hasNextLine() && st.hasMoreTokens()){
             type = st.nextToken();
@@ -146,6 +146,8 @@ public class Main {
             password = st.nextToken();
             additional = st.nextToken();
             users.add(createUserObject(name,id,username,password,type,additional));
+            if (scan.hasNextLine())
+                st = new StringTokenizer(scan.nextLine(),";");
         }
         scan.close();
     }
@@ -166,7 +168,7 @@ public class Main {
     public static void readCoursesFromThisSemester() throws FileNotFoundException {
         int numStudents, credits;
         String name, number, dept, instructor;
-        Scanner scan = new Scanner(new File("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\spring2022.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while(scan.hasNextLine() && st.hasMoreTokens()){
             numStudents = Integer.parseInt(st.nextToken());
@@ -176,13 +178,21 @@ public class Main {
             instructor = st.nextToken();
             credits = Integer.parseInt(st.nextToken());
             Course course = new Course(name, number, credits, dept, instructor);
+            st = new StringTokenizer(scan.nextLine(),";");
             for(int i = 0; i < numStudents; i++){
                 course.addStudent(st.nextToken());
             }
+            st = new StringTokenizer(scan.nextLine(),";");
             for(int i = 0; i < numStudents; i++){
                 course.addGrade(Double.parseDouble(st.nextToken()));
             }
             courses.add(course);
+            if (scan.hasNextLine())
+                st = new StringTokenizer(scan.nextLine(),";");
+        }
+        //Test to check if reading courses works or not:
+        for (Course c:courses) {
+            System.out.println(c.toString());
         }
         scan.close();
     }
