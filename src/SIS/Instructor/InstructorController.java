@@ -21,23 +21,19 @@ public class InstructorController extends Controller {
         view = new InstructorView();
     }
 
-
     public void getView(){
        view.getView();
     }
 
 
-    @Override
     public View view() {
-        return view;
+        return (InstructorView)view;
     }
 
-    @Override
     public Model getModel() {
-        return model;
+        return (InstructorModel)model;
     }
 
-    @Override
     public void setModel() {
 
     }

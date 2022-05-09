@@ -27,22 +27,7 @@ public class Main {
         spring2022.txt -> list of current sem courses, students enrolled, grades, etc
         since students have to be able to register for courses in future term, we can create a new textfile
         that keeps track of courses available next sem - and still follow the same naming convention 'semester_name.txt'
-
-
-        potential program flow?
-
-        login  -> parse all common data for program - current sem courses, etc,
-
-        if student-> create a student thread -> retrieve grade from arraylist of current sem courses based
-            on his id and store in a StudentCourse object
-
-        if instructor -> create instructor thread
-                      -> retrieve list of registered courses from arraylist of current sem courses by
-                         cross-referencing his name
-
-        if admin -> create admin thread
-                 ->
-        */
+*/
 
 
         //TODO: Figure out the ArrayList functionality
@@ -51,23 +36,38 @@ public class Main {
 
 
         readAllData();
-//        users.add(new AdministratorController());
+        updateAllUsers();
 
-        //Login Starts from here
+        //Test to see if the students arraylist of registered courses is updated after reading from the file:
+        System.out.println("Student courses");
+
+        for (Controller user : users) {
+            if (user instanceof StudentController) {
+                System.out.println(user.getModel().toString());
+                StudentModel m = (StudentModel) user.getModel();
+                m.printCourses();
+            }
+
+            if (user instanceof InstructorController){
+                System.out.println(user.getModel().toString());
+                InstructorModel m = (InstructorModel)user.getModel();
+                m.printCourses();
+            }
+        }
+
+
         login();
 
         //Flag Validation Mechanism
-        if(flag == 0)
-        {
-            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password","Error",JOptionPane.OK_CANCEL_OPTION);
+        if (flag == 0) {
+            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
 
-            if(option == JOptionPane.OK_OPTION) {
-                if(tries <= 3){
+            if (option == JOptionPane.OK_OPTION) {
+                if (tries <= 3) {
                     login();
-                }
-                else{
-                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached","Error",JOptionPane.OK_CANCEL_OPTION);
-                    if(option2 == JOptionPane.OK_OPTION){
+                } else {
+                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.OK_CANCEL_OPTION);
+                    if (option2 == JOptionPane.OK_OPTION) {
                         System.exit(0);
                     }
                 }
@@ -76,26 +76,47 @@ public class Main {
         }
     }
 
-    public static void login()
-    {
-        System.out.println("Hello world!");
+    public static void updateAllUsers() {
+        for (Course c : courses) {
+            //first we find and assign the instructor to the courses he teaches:
+            for (Controller user : users) {
+                if (user instanceof InstructorController) {
+
+                    if (user.getModel().getName().compareTo(c.instructor) == 0) {
+                        InstructorModel m = (InstructorModel) user.getModel();
+                        m.addCourse(c);
+                    }
+                }
+            }
+
+            //then we update the students registered_courses to the courses he is registered in:
+            ArrayList<String> ids = c.getStudents();
+
+            for (String id : ids) {
+                for (Controller user : users) {
+                    if (user.getModel().getId().compareTo(id) == 0) {
+                        StudentModel m = (StudentModel) user.getModel();
+                        m.getRegisteredCourses().add(c);
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    public static void login() {
         JTextField userField = new JTextField();
         JPasswordField passField = new JPasswordField();
-        Object[] panel = {"User ID:", userField,"User Password: ", passField};
-        int option = JOptionPane.showConfirmDialog(null, panel,"Enter Credentials",JOptionPane.OK_CANCEL_OPTION,1);
-        if(option == JOptionPane.OK_OPTION)
-        {
+        Object[] panel = {"User ID:", userField, "User Password: ", passField};
+        int option = JOptionPane.showConfirmDialog(null, panel, "Enter Credentials", JOptionPane.OK_CANCEL_OPTION, 1);
+        if (option == JOptionPane.OK_OPTION) {
             //TODO: add validation for the username/password
             String username = userField.getText();
             String password = new String(passField.getPassword());
-            System.out.println("Text Username: " + username);
-            System.out.println("Text password: "+ password);
 
             for (Controller user : users) {
-                System.out.println(user.getModel().getUsername());
-                System.out.println(user.getModel().getPassword());
                 if (user.getModel().getUsername().compareTo(username) == 0 && user.getModel().getPassword().compareTo(password) == 0) {
-                    System.out.println("Validation true");
                     flag = 1;
                     user.view().getView();
                 } else {
@@ -103,8 +124,7 @@ public class Main {
                 }
             }
 
-        }
-        else if(option == JOptionPane.CANCEL_OPTION){
+        } else if (option == JOptionPane.CANCEL_OPTION) {
             flag = -1;
         }
     }
@@ -135,32 +155,32 @@ public class Main {
     //student: type;name;ID;username;password;major
 
     public static void readRegisteredUsers() throws FileNotFoundException {
-        String name, id, username, password,type, additional;
+        String name, id, username, password, type, additional;
         Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
-        while(scan.hasNextLine() && st.hasMoreTokens()){
+        while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
             name = st.nextToken();
             id = st.nextToken();
             username = st.nextToken();
             password = st.nextToken();
             additional = st.nextToken();
-            users.add(createUserObject(name,id,username,password,type,additional));
+            users.add(createUserObject(name, id, username, password, type, additional));
             if (scan.hasNextLine())
-                st = new StringTokenizer(scan.nextLine(),";");
+                st = new StringTokenizer(scan.nextLine(), ";");
         }
         scan.close();
     }
 
     //function that creates a user object based on the type of user
-    public static Controller createUserObject(String name, String id, String username, String password, String type, String additional){
+    public static Controller createUserObject(String name, String id, String username, String password, String type, String additional) {
 
         if (type.compareTo("admin") == 0)
-            return (new AdministratorController(name,id,username,password));
+            return (new AdministratorController(name, id, username, password));
         if (type.compareTo("student") == 0)
-            return (new StudentController(name,id,username,password,additional));
+            return (new StudentController(name, id, username, password, additional));
         if (type.compareTo("instructor") == 0)
-            return (new InstructorController(name,id,username,password,additional));
+            return (new InstructorController(name, id, username, password, additional));
 
         return null;
     }
@@ -170,7 +190,7 @@ public class Main {
         String name, number, dept, instructor;
         Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
-        while(scan.hasNextLine() && st.hasMoreTokens()){
+        while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());
             name = st.nextToken();
             number = st.nextToken();
@@ -178,20 +198,20 @@ public class Main {
             instructor = st.nextToken();
             credits = Integer.parseInt(st.nextToken());
             Course course = new Course(name, number, credits, dept, instructor);
-            st = new StringTokenizer(scan.nextLine(),";");
-            for(int i = 0; i < numStudents; i++){
+            st = new StringTokenizer(scan.nextLine(), ";");
+            for (int i = 0; i < numStudents; i++) {
                 course.addStudent(st.nextToken());
             }
-            st = new StringTokenizer(scan.nextLine(),";");
-            for(int i = 0; i < numStudents; i++){
+            st = new StringTokenizer(scan.nextLine(), ";");
+            for (int i = 0; i < numStudents; i++) {
                 course.addGrade(Double.parseDouble(st.nextToken()));
             }
             courses.add(course);
             if (scan.hasNextLine())
-                st = new StringTokenizer(scan.nextLine(),";");
+                st = new StringTokenizer(scan.nextLine(), ";");
         }
         //Test to check if reading courses works or not:
-        for (Course c:courses) {
+        for (Course c : courses) {
             System.out.println(c.toString());
         }
         scan.close();

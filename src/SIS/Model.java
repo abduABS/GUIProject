@@ -40,4 +40,9 @@ public abstract class Model {
         return password;
     }
 
+    @Override
+    public String toString() {
+        return ("Name: " + name + "; ID: " + ID + "; username: " + username
+         + "; password: "+ password);
+    }
 }

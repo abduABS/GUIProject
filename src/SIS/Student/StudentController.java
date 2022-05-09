@@ -1,10 +1,9 @@
 package SIS.Student;
-
-import SIS.Controller;
 import SIS.Model;
 import SIS.View;
+import SIS.Controller;
 
-public class StudentController extends Controller {
+public class StudentController extends Controller{
     private StudentModel model;
     private StudentView view;
 
@@ -22,17 +21,16 @@ public class StudentController extends Controller {
         model = new StudentModel(name,id,username,password,major);
         view = new StudentView(model);
     }
-    @Override
+
+
     public View view() {
-        return view;
+        return (StudentView)view;
     }
 
-    @Override
     public Model getModel() {
-        return model;
+        return (StudentModel)model;
     }
 
-    @Override
     public void setModel() {
 
     }

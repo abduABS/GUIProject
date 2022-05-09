@@ -1,13 +1,12 @@
 package SIS.Instructor;
-
+import SIS.*;
 import SIS.Course;
-import SIS.Model;
 
 import java.util.ArrayList;
 
 public class InstructorModel extends Model {
     private String department;
-    private ArrayList<Course> courses;
+    private ArrayList<Course> courses = new ArrayList<>();
 
     public InstructorModel() {
         super();
@@ -18,8 +17,6 @@ public class InstructorModel extends Model {
     public InstructorModel(String name, String ID, String username, String password, String dept) {
         super(name, ID, username, password);
         this.department = dept;
-//        this.department = department;
-//        this.courses = courses;
     }
 
     public String getDepartment() {
@@ -36,5 +33,20 @@ public class InstructorModel extends Model {
 
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
+    }
+
+    public void addCourse(Course c){
+        courses.add(c);
+    }
+
+    public void printCourses(){
+        for (Course c :
+                courses) {
+            System.out.println(c.getName());
+        }
+    }
+    @Override
+    public String toString() {
+        return (super.toString());
     }
 }

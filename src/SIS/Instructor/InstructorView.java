@@ -5,9 +5,8 @@ import SIS.View;
 import javax.swing.*;
 import java.awt.*;
 
-//
-public class InstructorView extends View {
-    @Override
+
+public class InstructorView extends View{
     public void getView() {
         JFrame frame = new JFrame();
         frame.setBounds(300,300,300,300);
@@ -20,7 +19,6 @@ public class InstructorView extends View {
         frame.setVisible(true);
     }
 
-    @Override
     public void setView() {
 
     }
