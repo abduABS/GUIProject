@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 //
-public class StudentView extends View {
+public class StudentView extends View{
     private Object[][] obArr;
     private StudentModel model;
 
@@ -23,7 +23,6 @@ public class StudentView extends View {
     }
 
 
-    @Override
     public void getView() {
         JFrame frame = new JFrame();
         frame.setBounds(300, 300, 300, 300);
@@ -155,7 +154,6 @@ public class StudentView extends View {
         frame.setVisible(true);
     }
 
-    @Override
     public void setView() {
 
     }

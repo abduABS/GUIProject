@@ -4,7 +4,7 @@ import SIS.Controller;
 import SIS.Model;
 import SIS.View;
 
-public class AdministratorController extends Controller {
+public class AdministratorController extends Controller{
     private AdministratorModel model;
     private AdministratorView view;
 
@@ -23,16 +23,13 @@ public class AdministratorController extends Controller {
         view = new AdministratorView();
     }
     public View view() {
-        return view;
+        return (AdministratorView)view;
     }
 
-
-    @Override
     public Model getModel() {
-        return model;
+        return (AdministratorModel)model;
     }
 
-    @Override
     public void setModel() {
 
     }
