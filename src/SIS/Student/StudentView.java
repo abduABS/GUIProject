@@ -164,7 +164,7 @@ public class StudentView extends View{
         JMenuItem addItem = new JMenuItem("Add Course(s)");
         addItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-
+                control.addCourse();
             }
 
         });
