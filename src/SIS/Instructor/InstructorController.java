@@ -9,7 +9,7 @@ public class InstructorController extends Controller {
     private InstructorView view;
     public InstructorController(){
         model = new InstructorModel();
-        view = new InstructorView();
+        view = new InstructorView(this);
     }
     public InstructorController(InstructorModel m, InstructorView v){
        model = m;
@@ -18,7 +18,7 @@ public class InstructorController extends Controller {
 
     public InstructorController(String name, String id, String username, String password, String dept){
         model = new InstructorModel(name,id,username,password,dept);
-        view = new InstructorView();
+        view = new InstructorView(this);
     }
 
     public void getView(){
@@ -36,5 +36,17 @@ public class InstructorController extends Controller {
 
     public void setModel() {
 
+    }
+
+    public void courseInfo() {
+    }
+
+    public void addCourse() {
+    }
+
+    public void changePass() {
+    }
+
+    public void changeName() {
     }
 }

@@ -69,9 +69,8 @@ public class StudentController extends Controller {
                 scan = new Scanner(file);
                 scan.useDelimiter(";|\n");
                 while (scan.hasNext()) {
-                    String name = scan.next();
-                    System.out.println(name);
                     String number = scan.next();
+                    String name = scan.next();
                     int credits = Integer.parseInt(scan.next());
                     model.getRegisteredCourses().add(new Course(name, number, credits));
 
@@ -106,9 +105,8 @@ public class StudentController extends Controller {
             try {
                 PrintWriter fw = new PrintWriter(new FileOutputStream(file));
                 for (int i = 0; i < model.getRegisteredCourses().size(); i++) {
-                    fw.print(model.getRegisteredCourses().get(i).getName() + ";");
                     fw.print(model.getRegisteredCourses().get(i).getNumber() + ";");
-                    fw.print(model.getRegisteredCourses().get(i).getInstructor() + ";");
+                    fw.print(model.getRegisteredCourses().get(i).getName() + ";");
                     fw.print(model.getRegisteredCourses().get(i).getCredits() + "\n");
                 }
                 //TODO: Save courses from an arraylist
@@ -120,22 +118,28 @@ public class StudentController extends Controller {
     }
 
     public void addCourse() {
-        JTextField nameField = new JTextField();
-        JTextField numberField = new JTextField();
-        JTextField hoursField = new JTextField();
-        Object[] panel = {"Course Name:", nameField,
-                "Course Number:", numberField,
-                "Course Hours:", hoursField};
-        int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
-            Course course = new Course(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
-            model.getRegisteredCourses().add(course);
-            DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
-            tableModel.removeRow(tableModel.getRowCount() - 1);
-            int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
-            tableModel.addRow(new Object[]{courseNum, course.getName(), course.getNumber(), course.getCredits()});
-            tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
-            view.getFrame().validate();
+        if (model.getRegisteredCourses().size() <= 5) {
+            JTextField nameField = new JTextField();
+            JTextField numberField = new JTextField();
+            JTextField hoursField = new JTextField();
+            Object[] panel = {"Course Name:", nameField,
+                    "Course Number:", numberField,
+                    "Course Hours:", hoursField};
+            int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                Course course = new Course(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
+                model.getRegisteredCourses().add(course);
+                DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
+                tableModel.removeRow(tableModel.getRowCount() - 1);
+                int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
+                tableModel.addRow(new Object[]{courseNum, course.getName(), course.getNumber(), course.getCredits()});
+                tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
+                view.getFrame().validate();
+            }
+
+        }
+        else{
+            //TODO: handle error for more than 5 courses
         }
     }
 
