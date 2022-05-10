@@ -62,6 +62,8 @@ public class StudentModel extends Model {
     public void registerCourse(){
 
     }
+
+
     public ArrayList<Course> getRegisteredCourses(){
         return  registeredCourses;
     }

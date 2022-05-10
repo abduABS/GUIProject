@@ -16,16 +16,38 @@ import java.util.StringTokenizer;
 //
 public class StudentView extends View{
     private Object[][] obArr;
+    private StudentController control;
     private StudentModel model;
 
-    public StudentView(StudentModel _model) {
-        model = _model;
+    private JFrame frame = null;
+
+    private JTable table = null;
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+
+    public StudentView(StudentController _control) {
+        control = _control;
+        model = (StudentModel) control.getModel();
     }
 
 
     public void getView() {
-        JFrame frame = new JFrame();
-        frame.setBounds(300, 300, 300, 300);
+        frame = new JFrame();
+        frame.setBounds(300, 300, 600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(new BorderLayout());
@@ -33,6 +55,31 @@ public class StudentView extends View{
         //panel.add(label, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout());
+        JButton loadBtn = new JButton("Load");
+        loadBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.loadCourses();
+            }
+        });
+        JButton addBtn = new JButton("Add Course");
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.addCourse();
+            }
+        });
+        JButton saveBtn = new JButton("Save");
+        saveBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.saveCourses();
+            }
+        });
+
+        btnPanel.add(loadBtn);
+        btnPanel.add(addBtn);
+        btnPanel.add(saveBtn);
         panel.add(btnPanel, BorderLayout.SOUTH);
 
         JMenuBar menuBar = new JMenuBar();
@@ -42,7 +89,7 @@ public class StudentView extends View{
         JMenuItem loadItem = new JMenuItem("Load Course(s)");
         loadItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                control.loadCourses();
             }
         });
 
@@ -64,25 +111,33 @@ public class StudentView extends View{
         header3.add("Courses");
         header3.add("Name");
         header3.add("Number");
-        header3.add("Courses");
+        header3.add("Credits");
         header3.add("Grade");
         objects.add(header3);
 
 
         //TODO: Add courses of a student from a file
-        String s = null;
+        //Getting Courses Information
+        for(int i =0; i < model.getRegisteredCourses().size(); i++){
+            ArrayList<Object> cTable = new ArrayList<Object>();
+            cTable.add(i+1);
+            cTable.add(model.getRegisteredCourses().get(i).getName());
+            cTable.add(model.getRegisteredCourses().get(i).getNumber());
+            cTable.add(model.getRegisteredCourses().get(i).getCredits());
+            cTable.add(model.getRegisteredCourses().get(i).getStudentGrade(model.getId()));
+            objects.add(cTable);
+        }
 
-//                StringTokenizer st = new StringTokenizer(s,";\n");
-//                int i =1;
-//                while(st.hasMoreTokens()) {
-//                    ArrayList<Object> ob = new ArrayList<Object>(6);
-//                    ob.add(i++);
-//                    ob.add(st.nextToken());
-//                    ob.add(st.nextToken());
-//                    ob.add(st.nextToken());
-//                    objects.add(ob);
-//                }
+        ArrayList<Object> header4 = new ArrayList<Object>();
+        header4.add("");
+        header4.add("");
+        header4.add("");
+        header4.add("GPA");
+        model.setGPA(control.calGPA(model));
+        header4.add(model.getGPA());
+        objects.add(header4);
 
+        //Converting the ArrayList to a 2D Object array
         obArr = new Object[objects.size()]
                 [objects.get(0).size()];
         for (int i1 = 0; i1 < objects.size(); i1++) {
@@ -91,8 +146,8 @@ public class StudentView extends View{
             }
         }
 
-        JTable table = new JTable(obArr, new String[]{"1", "2", "3", "4", "5", "6"});
-        table.setModel(new DefaultTableModel(obArr, new String[]{"1", "2", "3", "4", "5", "6"}) {
+        table = new JTable(obArr,new String[]{"1","2","3","4","5","6"});
+        table.setModel(new DefaultTableModel(obArr, new String[]{"1","2","3","4","5","6"}) {
             boolean[] columnEditables = new boolean[]{
                     false, false, false, false, false, false
             };
@@ -101,45 +156,22 @@ public class StudentView extends View{
                 return columnEditables[column];
             }
         });
+        table.setTableHeader(null);
+        table.getColumnModel().getColumn(1).setPreferredWidth(200);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         JMenuItem addItem = new JMenuItem("Add Course(s)");
         addItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                JTextField nameField = new JTextField();
-                JTextField numberField = new JTextField();
-                JTextField hoursField = new JTextField();
-                Object[] panel = {"Course Name:", nameField,
-                        "Course Number:", numberField,
-                        "Course Hours:", hoursField,};
-                int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
-                if (option == JOptionPane.OK_OPTION) {
-                    Course course = new Course(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
-                    model.getRegisteredCourses().add(course);
 
-                }
             }
 
         });
         JMenuItem saveItem = new JMenuItem("Save Course(s)");
         saveItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser("f:");
-                int r = chooser.showSaveDialog(null);
-                if (r == JFileChooser.APPROVE_OPTION) {
-                    File file = new
-                            File(chooser.getSelectedFile().getAbsolutePath());
-                    try {
-                        PrintWriter fw = new PrintWriter(new FileOutputStream(file));
-                        //TODO: Save courses from an arraylist
-                        fw.close();
-                    } catch (FileNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (IOException e2) {
-                        e2.printStackTrace();
-                    }
-                }
+                control.saveCourses();
             }
         });
 

@@ -82,7 +82,7 @@ public class Main {
             for (Controller user : users) {
                 if (user instanceof InstructorController) {
 
-                    if (user.getModel().getName().compareTo(c.instructor) == 0) {
+                    if (user.getModel().getName().compareTo(c.getInstructor()) == 0) {
                         InstructorModel m = (InstructorModel) user.getModel();
                         m.addCourse(c);
                     }
@@ -111,7 +111,6 @@ public class Main {
         Object[] panel = {"User ID:", userField, "User Password: ", passField};
         int option = JOptionPane.showConfirmDialog(null, panel, "Enter Credentials", JOptionPane.OK_CANCEL_OPTION, 1);
         if (option == JOptionPane.OK_OPTION) {
-            //TODO: add validation for the username/password
             String username = userField.getText();
             String password = new String(passField.getPassword());
 
@@ -156,7 +155,7 @@ public class Main {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password, type, additional;
-        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\users.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
@@ -188,7 +187,7 @@ public class Main {
     public static void readCoursesFromThisSemester() throws FileNotFoundException {
         int numStudents, credits;
         String name, number, dept, instructor;
-        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\spring2022.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());

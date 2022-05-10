@@ -3,11 +3,12 @@ import SIS.Student.StudentModel;
 
 import java.util.*;
 public class Course {
-    public int credits;
-    public String name;
-    public String number;
-    public String department;
-    public String instructor;
+
+    private int credits;
+    private String name;
+    private String number;
+    private String department;
+    private String instructor;
     private ArrayList<String> students = new ArrayList<String>();
     private ArrayList<Double> grades = new ArrayList<Double>();
 
@@ -41,6 +42,9 @@ public class Course {
         }
     }
 
+    public int getCredits() {
+        return credits;
+    }
     public String getName() {
         return name;
     }
@@ -68,6 +72,10 @@ public class Course {
 
     public void setNumber(String _n) {
         number = _n;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
     public void setDepartment(String _d) {
