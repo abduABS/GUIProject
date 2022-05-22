@@ -1,5 +1,7 @@
-package SIS.Instructor;
+package SIS.CourseInfo;
 
+import SIS.Instructor.InstructorController;
+import SIS.Instructor.InstructorModel;
 import SIS.View;
 
 import javax.swing.*;
@@ -10,10 +12,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class InstructorView extends View{
+public class CourseInfoView extends View{
     private Object[][] obArr;
-    private InstructorController control;
-    private InstructorModel model;
+    private CourseInfoController control;
+    private CourseInfoModel model;
 
     private JFrame frame = null;
 
@@ -35,9 +37,9 @@ public class InstructorView extends View{
         this.table = table;
     }
 
-    public InstructorView(InstructorController _control) {
+    public CourseInfoView(CourseInfoController _control) {
         control = _control;
-        model = (InstructorModel) control.getModel();
+        model = (CourseInfoModel) control.getModel();
     }
 
 
@@ -83,7 +85,6 @@ public class InstructorView extends View{
                 control.changeName();
             }
         });
-
 //        JButton gradeBtn = new JButton("Change Grade");
 //        gradeBtn.addActionListener(new ActionListener() {
 //            @Override
@@ -129,6 +130,7 @@ public class InstructorView extends View{
         JMenuItem courseItem = new JMenuItem("View Course");
         nameItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //control.loadCourses();
                 control.courseInfo();
             }
         });
@@ -136,6 +138,7 @@ public class InstructorView extends View{
         JMenuItem addItem = new JMenuItem("Add Course");
         addItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //control.loadCourses();
                 control.addCourse();
             }
         });

@@ -1,29 +1,30 @@
-package SIS.Instructor;
+package SIS.CourseInfo;
 
 import SIS.Controller;
 import SIS.Course;
-import SIS.CourseInfo.CourseInfoController;
+import SIS.Instructor.InstructorModel;
+import SIS.Instructor.InstructorView;
 import SIS.Model;
 import SIS.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class InstructorController extends Controller {
-    private InstructorModel model;
-    private InstructorView view;
-    public InstructorController(){
-        model = new InstructorModel();
-        view = new InstructorView(this);
+public class CourseInfoController extends Controller {
+    private CourseInfoModel model;
+    private CourseInfoView view;
+    public CourseInfoController(){
+        model = new CourseInfoModel();
+        view = new CourseInfoView(this);
     }
-    public InstructorController(InstructorModel m, InstructorView v){
+    public CourseInfoController(CourseInfoModel m, CourseInfoView v){
        model = m;
        view = v;
     }
 
-    public InstructorController(String name, String id, String username, String password, String dept){
-        model = new InstructorModel(name,id,username,password,dept);
-        view = new InstructorView(this);
+    public CourseInfoController(Course course){
+        model = new CourseInfoModel(course);
+        view = new CourseInfoView(this);
     }
 
     public void getView(){
@@ -32,11 +33,11 @@ public class InstructorController extends Controller {
 
 
     public View view() {
-        return (InstructorView)view;
+        return (CourseInfoView)view;
     }
 
     public Model getModel() {
-        return (InstructorModel)model;
+        return (CourseInfoModel)model;
     }
 
     public void setModel() {
@@ -44,8 +45,8 @@ public class InstructorController extends Controller {
     }
 
     public void courseInfo() {
-        CourseInfoController cController = new CourseInfoController();
-        cController.getView();
+        JFrame frame = new JFrame();
+
     }
 
     public void addCourse() {
