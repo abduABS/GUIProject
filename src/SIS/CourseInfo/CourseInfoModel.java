@@ -7,16 +7,18 @@ import java.util.ArrayList;
 
 public class CourseInfoModel extends Model {
 
-    Course course;
+    ArrayList<Course> courses;
     public CourseInfoModel() {
         super();
-        course = new Course("Example","EXE",3);
+        this.courses = new ArrayList<Course>();
     }
+    
+//    public CourseInfoModel(Course course) {
+//        this.courses = course;
+//    }
 
-
-    public CourseInfoModel(Course course) {
-
+    public ArrayList<Course> getCourses() {
+    	return courses;
     }
-
-
+    
 }

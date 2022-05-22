@@ -18,6 +18,8 @@ public class Main {
     //
     static int flag = 0;
     static int tries = 0;
+    
+    static String path = new String("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\");
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -155,7 +157,7 @@ public class Main {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password, type, additional;
-        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\users.txt"));
+        Scanner scan = new Scanner(new File(path + "users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
@@ -187,7 +189,7 @@ public class Main {
     public static void readCoursesFromThisSemester() throws FileNotFoundException {
         int numStudents, credits;
         String name, number, dept, instructor;
-        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\spring2022.txt"));
+        Scanner scan = new Scanner(new File(path + "spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());

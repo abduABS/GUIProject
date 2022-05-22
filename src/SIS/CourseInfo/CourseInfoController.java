@@ -22,10 +22,10 @@ public class CourseInfoController extends Controller {
        view = v;
     }
 
-    public CourseInfoController(Course course){
-        model = new CourseInfoModel(course);
-        view = new CourseInfoView(this);
-    }
+//    public CourseInfoController(Course course){
+//        model = new CourseInfoModel(course);
+//        view = new CourseInfoView(this);
+//    }
 
     public void getView(){
        view.getView();
