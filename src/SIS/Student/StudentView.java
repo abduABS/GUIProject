@@ -112,7 +112,6 @@ public class StudentView extends View{
         objects.add(header3);
 
 
-        //TODO: Add courses of a student from a file
         //Getting Courses Information
         for(int i =0; i < model.getRegisteredCourses().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();

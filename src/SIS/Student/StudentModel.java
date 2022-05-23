@@ -5,10 +5,6 @@ import SIS.CourseInfo.CourseController;
 
 import java.util.ArrayList;
 
-//TODO:
-//write fn to parse registered courses from a text file Course Number; Course Name; Number of Credits
-// there's a file containing data for all avlbl courses including grades, registered students etc
-// when student registers for course go to this file and get his grade
 
 public class StudentModel extends Model {
     private String major =  "N/A";
