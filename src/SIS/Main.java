@@ -1,3 +1,4 @@
+
 package SIS;
 
 import SIS.Adminstrator.*;
@@ -18,8 +19,6 @@ public class Main {
     //
     static int flag = 0;
     static int tries = 0;
-    
-    static String path = new String("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\");
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -30,12 +29,6 @@ public class Main {
         since students have to be able to register for courses in future term, we can create a new textfile
         that keeps track of courses available next sem - and still follow the same naming convention 'semester_name.txt'
 */
-
-
-        //TODO: Figure out the ArrayList functionality
-
-        //TODO: Figure out efficent way to add people to database
-
 
         readAllData();
         updateAllUsers();
@@ -50,9 +43,9 @@ public class Main {
                 m.printCourses();
             }
 
-            if (user instanceof InstructorController){
+            if (user instanceof InstructorController) {
                 System.out.println(user.getModel().toString());
-                InstructorModel m = (InstructorModel)user.getModel();
+                InstructorModel m = (InstructorModel) user.getModel();
                 m.printCourses();
             }
         }
@@ -84,7 +77,7 @@ public class Main {
             for (Controller user : users) {
                 if (user instanceof InstructorController) {
 
-                    if (user.getModel().getName().compareTo(c.getInstructor()) == 0) {
+                    if (user.getModel().getName().compareTo(c.getInstructor().getModel().getName()) == 0) {
                         InstructorModel m = (InstructorModel) user.getModel();
                         m.addCourse(c);
                     }
@@ -92,11 +85,11 @@ public class Main {
             }
 
             //then we update the students registered_courses to the courses he is registered in:
-            ArrayList<String> ids = c.getStudents();
+            ArrayList<StudentController> students = c.getStudents();
 
-            for (String id : ids) {
+            for (StudentController student : students) {
                 for (Controller user : users) {
-                    if (user.getModel().getId().compareTo(id) == 0) {
+                    if (user.getModel().getId().compareTo(student.getModel().getId()) == 0) {
                         StudentModel m = (StudentModel) user.getModel();
                         m.getRegisteredCourses().add(c);
                     }
@@ -157,7 +150,7 @@ public class Main {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password, type, additional;
-        Scanner scan = new Scanner(new File(path + "users.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
@@ -188,24 +181,37 @@ public class Main {
 
     public static void readCoursesFromThisSemester() throws FileNotFoundException {
         int numStudents, credits;
-        String name, number, dept, instructor;
-        Scanner scan = new Scanner(new File(path + "spring2022.txt"));
+        String name, number, dept, instructorId;
+        InstructorController instructor = null;
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());
             name = st.nextToken();
             number = st.nextToken();
             dept = st.nextToken();
-            instructor = st.nextToken();
+            instructorId = st.nextToken();
             credits = Integer.parseInt(st.nextToken());
-            Course course = new Course(name, number, credits, dept, instructor);
-            st = new StringTokenizer(scan.nextLine(), ";");
-            for (int i = 0; i < numStudents; i++) {
-                course.addStudent(st.nextToken());
+
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getModel().getId().equals(instructorId)) {
+                    instructor = (InstructorController) users.get(i);
+                }
             }
-            st = new StringTokenizer(scan.nextLine(), ";");
+
+            Course course = new Course(name, number, credits, dept, instructor);
+            StudentController student = null;
             for (int i = 0; i < numStudents; i++) {
-                course.addGrade(Double.parseDouble(st.nextToken()));
+                st = new StringTokenizer(scan.nextLine(), ";");
+                String sId = st.nextToken();
+                double sGrade = Double.parseDouble(st.nextToken());
+                course.getGrades().add(sGrade);
+                for (int j = 0; j < users.size(); j++) {
+                    if (users.get(j).getModel().getId().equals(sId)) {
+                        student = (StudentController) users.get(j);
+                    }
+                }
+                course.addStudent(student);
             }
             courses.add(course);
             if (scan.hasNextLine())
@@ -218,3 +224,4 @@ public class Main {
         scan.close();
     }
 }
+

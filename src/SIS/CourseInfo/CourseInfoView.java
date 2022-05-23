@@ -1,3 +1,5 @@
+
+
 package SIS.CourseInfo;
 
 import SIS.Instructor.InstructorController;
@@ -12,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class CourseInfoView extends View{
+public class CourseInfoView extends View {
     private Object[][] obArr;
     private CourseInfoController control;
     private CourseInfoModel model;
@@ -57,7 +59,7 @@ public class CourseInfoView extends View{
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               //TODO: Add a course save option
+                //TODO: Add a course save option
                 //control.saveCourse();
             }
         });
@@ -139,7 +141,7 @@ public class CourseInfoView extends View{
 
         //TODO: Add courses of a Instructor from a file
         //Getting Courses Information
-        for(int i =0; i < model.getCourse().getStudents().size(); i++){
+        for (int i = 0; i < model.getCourse().getStudents().size(); i++) {
             ArrayList<Object> cTable = new ArrayList<Object>();
             cTable.add(model.getCourse().getStudents().get(i).getModel().getId());
             cTable.add(model.getCourse().getStudents().get(i).getModel().getName());
@@ -157,8 +159,8 @@ public class CourseInfoView extends View{
             }
         }
 
-        table = new JTable(obArr,new String[]{"1","2","3","4","5","6"});
-        table.setModel(new DefaultTableModel(obArr, new String[]{"1","2","3","4","5","6"}) {
+        table = new JTable(obArr, new String[]{"1", "2", "3", "4", "5", "6"});
+        table.setModel(new DefaultTableModel(obArr, new String[]{"1", "2", "3", "4", "5", "6"}) {
             boolean[] columnEditables = new boolean[]{
                     false, false, false, false, false, false
             };
