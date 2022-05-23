@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class CourseInfoController extends Controller {
+public class CourseInfoController  {
     private CourseInfoModel model;
     private CourseInfoView view;
 
