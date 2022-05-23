@@ -1,0 +1,17 @@
+3;Data Structures;CS320;CSE;1010;3;
+5678;92;
+1234;91;
+2345;99;
+2;Intro to Physics;PC101;PHY;2020;4;
+5678;92;
+1234;91;
+2;Business Project 1;BS432;QBA;4070;7;
+1234;96;
+5678;94;
+2;Intro to GUI;CS220;CSE;1010;3;
+1234;88;
+2345;40;
+3;Organic Chemistry;CH102;CHM;3030;2;
+1234;72;
+5678;81;
+2345;70;
