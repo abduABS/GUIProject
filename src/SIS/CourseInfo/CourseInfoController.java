@@ -15,12 +15,22 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class CourseInfoController  {
+
+    private boolean isAdmin = false;
     private CourseInfoModel model;
     private CourseInfoView view;
 
     public CourseInfoController(Course course) {
         model = new CourseInfoModel(course);
         view = new CourseInfoView(this);
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public CourseInfoController(CourseInfoModel m, CourseInfoView v) {

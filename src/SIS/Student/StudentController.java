@@ -14,9 +14,18 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class StudentController extends Controller{
+
+    private boolean isAdmin = false;
     private StudentModel model;
     private StudentView view;
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 
     public void run(){
         view.getView();
