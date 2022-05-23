@@ -9,9 +9,13 @@ import SIS.View;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class InstructorController extends Controller {
+public class InstructorController extends Controller{
     private InstructorModel model;
     private InstructorView view;
+
+    public void run(){
+        view.getView();
+    }
     public InstructorController(){
         model = new InstructorModel();
         view = new InstructorView(this);

@@ -8,6 +8,10 @@ public class AdministratorController extends Controller{
     private AdministratorModel model;
     private AdministratorView view;
 
+    public void run(){
+        view.getView();
+    }
+
     public AdministratorController() {
         model = new AdministratorModel();
         view = new AdministratorView();

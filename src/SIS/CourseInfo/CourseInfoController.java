@@ -10,7 +10,7 @@ import SIS.View;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class CourseInfoController extends Controller {
+public class CourseInfoController  {
     private CourseInfoModel model;
     private CourseInfoView view;
 

@@ -13,11 +13,14 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class StudentController extends Controller {
+public class StudentController extends Controller{
     private StudentModel model;
     private StudentView view;
 
 
+    public void run(){
+        view.getView();
+    }
     public StudentController() {
         model = new StudentModel();
         model.setGPA(calGPA(model));

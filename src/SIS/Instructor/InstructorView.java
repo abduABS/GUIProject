@@ -44,7 +44,7 @@ public class InstructorView extends View{
     public void getView() {
         frame = new JFrame();
         frame.setBounds(300, 300, 600, 300);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(new BorderLayout());
         //JLabel label = new JLabel("Instructor");
