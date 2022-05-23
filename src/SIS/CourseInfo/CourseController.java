@@ -11,18 +11,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class CourseInfoController  {
+public class CourseController {
 
     private boolean isAdmin = false;
-    private CourseInfoModel model;
-    private CourseInfoView view;
+    private CourseModel model;
+    private CourseView view;
 
-    public CourseInfoController(Course course) {
-        model = new CourseInfoModel(course);
-        view = new CourseInfoView(this);
+    public CourseController(CourseModel courseModel) {
+        model = courseModel;
+        view = new CourseView(this);
     }
 
     public boolean isAdmin() {
@@ -33,7 +32,7 @@ public class CourseInfoController  {
         isAdmin = admin;
     }
 
-    public CourseInfoController(CourseInfoModel m, CourseInfoView v) {
+    public CourseController(CourseModel m, CourseView v) {
         model = m;
         view = v;
     }
@@ -46,10 +45,10 @@ public class CourseInfoController  {
         int option = JOptionPane.showConfirmDialog(null, panel, "Change Student Grade", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             int flag = 0;
-            for (int i = 0; i < model.getCourse().getStudents().size(); i++) {
-                if (model.getCourse().getStudents().get(i).getModel().getId().equals(iDField.getText())) {
+            for (int i = 0; i < model.getStudents().size(); i++) {
+                if (model.getStudents().get(i).getModel().getId().equals(iDField.getText())) {
                     flag = 1;
-                    model.getCourse().getGrades().set(i, Double.parseDouble(gradeField.getText()));
+                    model.getGrades().set(i, Double.parseDouble(gradeField.getText()));
                     DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                     tableModel.setValueAt(Double.parseDouble(gradeField.getText()), i + 4, 2);
                 }
@@ -73,11 +72,11 @@ public class CourseInfoController  {
                 scan.useDelimiter(";|\n");
                 int studentNum = scan.nextInt();
                 String cName = scan.next();
-                model.getCourse().setName(cName);
+                model.setName(cName);
                 String cNumber = scan.next();
-                model.getCourse().setNumber(cNumber);
+                model.setNumber(cNumber);
                 String cDepartment = scan.next();
-                model.getCourse().setNumber(cDepartment);
+                model.setNumber(cDepartment);
                 String instructorId = scan.next();
                 InstructorController instructor = null;
                 for (int i = 0; i < Main.getUsers().size(); i++) {
@@ -85,10 +84,10 @@ public class CourseInfoController  {
                         instructor = (InstructorController) Main.getUsers().get(i);
                     }
                 }
-                model.getCourse().setInstructor((InstructorController) instructor);
+                model.setInstructor((InstructorController) instructor);
                 int cCredits = scan.nextInt();
-                model.getCourse().setCredits(cCredits);
-                Course course = new Course(cName,cNumber,cCredits,cDepartment,instructor);
+                model.setCredits(cCredits);
+                CourseModel course = new CourseModel(cName,cNumber,cCredits,cDepartment,instructor);
                 Double cGrade = null;
                 for (int i = 0; i < studentNum; i++) {
                     String studentId = scan.next();
@@ -108,20 +107,20 @@ public class CourseInfoController  {
                 for(int i =0; i < course.getStudents().size();i++){
                     System.out.println(course.getStudents().get(i).getModel().getId());
                 }
-                model.setCourse(course);
-                System.out.println(model.getCourse().getGrades().size());
-                System.out.println(model.getCourse().getStudents().size());
+                setModel(course);
+                System.out.println(model.getGrades().size());
+                System.out.println(model.getStudents().size());
 
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.setRowCount(4);
                 ArrayList<ArrayList<Object>> objects = new ArrayList<ArrayList<Object>>();
                 ArrayList<Object> header = new ArrayList<Object>();
                 header.add("Name");
-                header.add(model.getCourse().getInstructor().getModel().getName());
+                header.add(model.getInstructor().getModel().getName());
                 header.add("ID");
-                header.add(model.getCourse().getInstructor().getModel().getId());
+                header.add(model.getInstructor().getModel().getId());
                 header.add("Department");
-                header.add(model.getCourse().getInstructor().getModel().getDepartment());
+                header.add(model.getInstructor().getModel().getDepartment());
                 objects.add(header);
                 ArrayList<Object> header2 = new ArrayList<Object>();
                 header2.add("Term");
@@ -129,8 +128,8 @@ public class CourseInfoController  {
                 objects.add(header2);
                 ArrayList<Object> header3 = new ArrayList<Object>();
                 header3.add("Course");
-                header3.add(model.getCourse().getNumber());
-                header3.add(model.getCourse().getName());
+                header3.add(model.getNumber());
+                header3.add(model.getName());
                 objects.add(header3);
                 ArrayList<Object> header4 = new ArrayList<Object>();
                 header4.add("ID");
@@ -140,11 +139,11 @@ public class CourseInfoController  {
 
                 //TODO: Add courses of a Instructor from a file
                 //Getting Courses Information
-                for (int i = 0; i < model.getCourse().getStudents().size(); i++) {
+                for (int i = 0; i < model.getStudents().size(); i++) {
                     ArrayList<Object> cTable = new ArrayList<Object>();
-                    cTable.add(model.getCourse().getStudents().get(i).getModel().getId());
-                    cTable.add(model.getCourse().getStudents().get(i).getModel().getName());
-                    cTable.add(model.getCourse().getGrades().get(i));
+                    cTable.add(model.getStudents().get(i).getModel().getId());
+                    cTable.add(model.getStudents().get(i).getModel().getName());
+                    cTable.add(model.getGrades().get(i));
                     objects.add(cTable);
                 }
 
@@ -185,15 +184,15 @@ public class CourseInfoController  {
             File file = new File(chooser.getSelectedFile().getAbsolutePath());
             try {
                 PrintWriter fw = new PrintWriter(new FileOutputStream(file));
-                fw.print(model.getCourse().getGrades().size() + ";");
-                fw.print(model.getCourse().getName() + ";");
-                fw.print(model.getCourse().getNumber() + ";");
-                fw.print(model.getCourse().getDepartment() + ";");
-                fw.print(model.getCourse().getInstructor().getModel().getId() + ";");
-                fw.print(model.getCourse().getCredits() + ";\n");
-                for (int i = 0; i < model.getCourse().getStudents().size(); i++) {
-                    fw.print(model.getCourse().getStudents().get(i).getModel().getId() + ";");
-                    fw.print(model.getCourse().getGrades().get(i) + "\n");
+                fw.print(model.getGrades().size() + ";");
+                fw.print(model.getName() + ";");
+                fw.print(model.getNumber() + ";");
+                fw.print(model.getDepartment() + ";");
+                fw.print(model.getInstructor().getModel().getId() + ";");
+                fw.print(model.getCredits() + ";\n");
+                for (int i = 0; i < model.getStudents().size(); i++) {
+                    fw.print(model.getStudents().get(i).getModel().getId() + ";");
+                    fw.print(model.getGrades().get(i) + "\n");
                 }
                 //TODO: Save courses from an arraylist
                 fw.close();
@@ -208,16 +207,16 @@ public class CourseInfoController  {
     }
 
 
-    public View view() {
-        return (CourseInfoView) view;
+    public CourseView view() {
+        return  view;
     }
 
-    public Model getModel() {
-        return (CourseInfoModel) model;
+    public CourseModel getModel() {
+        return  model;
     }
 
-    public void setModel() {
-
+    public void setModel(CourseModel model) {
+        this.model = model;
     }
 
 

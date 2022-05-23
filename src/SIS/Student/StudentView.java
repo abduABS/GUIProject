@@ -1,6 +1,7 @@
 package SIS.Student;
 
 import SIS.Course;
+import SIS.CourseInfo.CourseController;
 import SIS.View;
 
 import javax.swing.*;
@@ -121,10 +122,10 @@ public class StudentView extends View{
         for(int i =0; i < model.getRegisteredCourses().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();
             cTable.add(i+1);
-            cTable.add(model.getRegisteredCourses().get(i).getName());
-            cTable.add(model.getRegisteredCourses().get(i).getNumber());
-            cTable.add(model.getRegisteredCourses().get(i).getCredits());
-            cTable.add(model.getRegisteredCourses().get(i).getStudentGrade(model.getId()));
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getName());
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getNumber());
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getCredits());
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getStudentGrade(model.getId()));
             objects.add(cTable);
         }
 
