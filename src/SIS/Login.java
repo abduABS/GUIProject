@@ -28,6 +28,14 @@ public class Login {
     static int flag = 0;
     static int tries = 0;
 
+    public static ArrayList<Controller> getUsers() {
+        return users;
+    }
+
+    public static void setUsers(ArrayList<Controller> users) {
+        Login.users = users;
+    }
+
     public static void startup() throws FileNotFoundException {
         readRegisteredUsers();
         readCoursesFromThisSemester();
@@ -106,7 +114,7 @@ public class Login {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password, type, additional;
-        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\users.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\Test\\src\\SIS\\users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
@@ -138,7 +146,7 @@ public class Login {
         int numStudents, credits;
         String name, number, dept, instructorId;
         InstructorController instructor = null;
-        Scanner scan = new Scanner(new File("C:\\Users\\radir\\IdeaProjects\\GUIProject\\src\\SIS\\spring2022.txt"));
+        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\Test\\src\\SIS\\spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());
