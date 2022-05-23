@@ -1,9 +1,8 @@
 package SIS.Student;
 
-import SIS.Course;
-import SIS.Model;
-import SIS.View;
-import SIS.Controller;
+import SIS.*;
+import SIS.CourseInfo.CourseController;
+import SIS.CourseInfo.CourseModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -51,8 +50,8 @@ public class StudentController extends Controller{
         double GPA = 0;
         double totalCredits = 0;
         for (int i = 0; i < model.getRegisteredCourses().size(); i++) {
-            GPA += model.getRegisteredCourses().get(i).getStudentGrade(getModel().getId()) * model.getRegisteredCourses().get(i).getCredits();
-            totalCredits += model.getRegisteredCourses().get(i).getCredits();
+            GPA += model.getRegisteredCourses().get(i).getModel().getStudentGrade(getModel().getId()) * model.getRegisteredCourses().get(i).getModel().getCredits();
+            totalCredits += model.getRegisteredCourses().get(i).getModel().getCredits();
         }
         GPA = GPA / totalCredits;
         return (GPA);
@@ -84,15 +83,21 @@ public class StudentController extends Controller{
                     String number = scan.next();
                     String name = scan.next();
                     int credits = Integer.parseInt(scan.next());
-                    model.getRegisteredCourses().add(new Course(name, number, credits));
+                    for (int j = 0; j < Main.getUsers().size(); j++) {
+                        if (Main.getCourses().get(j).getModel().getNumber().equals(number)) {
+                            model.getRegisteredCourses().add(Main.getCourses().get(j));
+                            model.getRegisteredCourses().get(j).getModel().addStudent(this);
+                        }
+                    }
+
 
                 }
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.setRowCount(3);
                 for (int i = 0; i < model.getRegisteredCourses().size(); i++) {
-                    tableModel.addRow(new Object[]{i + 1, model.getRegisteredCourses().get(i).getName(),
-                            model.getRegisteredCourses().get(i).getNumber(),
-                            model.getRegisteredCourses().get(i).getCredits()});
+                    tableModel.addRow(new Object[]{i + 1, model.getRegisteredCourses().get(i).getModel().getName(),
+                            model.getRegisteredCourses().get(i).getModel().getNumber(),
+                            model.getRegisteredCourses().get(i).getModel().getCredits()});
                 }
                 model.setGPA(calGPA(model));
                 tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
@@ -117,9 +122,9 @@ public class StudentController extends Controller{
             try {
                 PrintWriter fw = new PrintWriter(new FileOutputStream(file));
                 for (int i = 0; i < model.getRegisteredCourses().size(); i++) {
-                    fw.print(model.getRegisteredCourses().get(i).getNumber() + ";");
-                    fw.print(model.getRegisteredCourses().get(i).getName() + ";");
-                    fw.print(model.getRegisteredCourses().get(i).getCredits() + "\n");
+                    fw.print(model.getRegisteredCourses().get(i).getModel().getNumber() + ";");
+                    fw.print(model.getRegisteredCourses().get(i).getModel().getName() + ";");
+                    fw.print(model.getRegisteredCourses().get(i).getModel().getCredits() + "\n");
                 }
                 fw.close();
             } catch (FileNotFoundException e1) {
@@ -133,18 +138,20 @@ public class StudentController extends Controller{
             JTextField nameField = new JTextField();
             JTextField numberField = new JTextField();
             JTextField hoursField = new JTextField();
-            Object[] panel = {"Course Name:", nameField,
-                    "Course Number:", numberField,
-                    "Course Hours:", hoursField};
+            Object[] panel = {"Course Number:", numberField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
                 //TODO:Change this implementation
-                Course course = new Course(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
-                model.getRegisteredCourses().add(course);
+                for (int j = 0; j < Main.getUsers().size(); j++) {
+                    if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
+                        model.getRegisteredCourses().add(Main.getCourses().get(j));
+                        model.getRegisteredCourses().get(j).getModel().addStudent(this);
+                    }
+                }
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.removeRow(tableModel.getRowCount() - 1);
                 int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
-                tableModel.addRow(new Object[]{courseNum, course.getName(), course.getNumber(), course.getCredits()});
+                tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getName(), course.getNumber(), course.getCredits()});
                 tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
                 view.getFrame().validate();
             }

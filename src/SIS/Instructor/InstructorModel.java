@@ -1,12 +1,14 @@
 package SIS.Instructor;
 import SIS.*;
 import SIS.Course;
+import SIS.CourseInfo.CourseController;
+import SIS.CourseInfo.CourseModel;
 
 import java.util.ArrayList;
 
 public class InstructorModel extends Model {
     private String department;
-    private ArrayList<Course> courses = new ArrayList<>();
+    private ArrayList<CourseController> courses = new ArrayList<>();
 
     public InstructorModel() {
         super();

@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class CourseInfoView extends View {
+public class CourseView extends View {
     private Object[][] obArr;
-    private CourseInfoController control;
-    private CourseInfoModel model;
+    private CourseController control;
+    private CourseModel model;
 
     private JFrame frame = null;
 
@@ -38,9 +38,9 @@ public class CourseInfoView extends View {
         this.table = table;
     }
 
-    public CourseInfoView(CourseInfoController _control) {
+    public CourseView(CourseController _control) {
         control = _control;
-        model = (CourseInfoModel) control.getModel();
+        model = (CourseModel) control.getModel();
     }
 
 
@@ -66,18 +66,22 @@ public class CourseInfoView extends View {
                 control.loadCourse();
             }
         });
-        JButton gradeBtn = new JButton("Change Grade");
-        gradeBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                control.changeGrade();
-            }
-        });
-
 
         btnPanel.add(saveBtn);
         btnPanel.add(loadBtn);
-        btnPanel.add(gradeBtn);
+
+        if(!control.isAdmin()){
+            JButton gradeBtn = new JButton("Change Grade");
+            gradeBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    control.changeGrade();
+                }
+            });
+            btnPanel.add(gradeBtn);
+        }
+
+
         panel.add(btnPanel, BorderLayout.SOUTH);
 
         JMenuBar menuBar = new JMenuBar();
@@ -98,26 +102,31 @@ public class CourseInfoView extends View {
             }
         });
 
-        JMenuItem changeItem = new JMenuItem("Change Grade");
-        changeItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                control.changeGrade();
-            }
-        });
-
         optionsMenu.add(saveItem);
         optionsMenu.add(loadItem);
-        optionsMenu.add(changeItem);
+
+        if(!control.isAdmin()){
+            JMenuItem changeItem = new JMenuItem("Change Grade");
+            changeItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    control.changeGrade();
+                }
+            });
+
+            optionsMenu.add(changeItem);
+        }
+
+
 
 
         ArrayList<ArrayList<Object>> objects = new ArrayList<ArrayList<Object>>();
         ArrayList<Object> header = new ArrayList<Object>();
         header.add("Name");
-        header.add(model.getCourse().getInstructor().getModel().getName());
+        header.add(model.getInstructor().getModel().getName());
         header.add("ID");
-        header.add(model.getCourse().getInstructor().getModel().getId());
+        header.add(model.getInstructor().getModel().getId());
         header.add("Department");
-        header.add(model.getCourse().getInstructor().getModel().getDepartment());
+        header.add(model.getInstructor().getModel().getDepartment());
         objects.add(header);
         ArrayList<Object> header2 = new ArrayList<Object>();
         header2.add("Term");
@@ -125,8 +134,8 @@ public class CourseInfoView extends View {
         objects.add(header2);
         ArrayList<Object> header3 = new ArrayList<Object>();
         header3.add("Course");
-        header3.add(model.getCourse().getNumber());
-        header3.add(model.getCourse().getName());
+        header3.add(model.getNumber());
+        header3.add(model.getName());
         objects.add(header3);
         ArrayList<Object> header4 = new ArrayList<Object>();
         header4.add("ID");
@@ -136,11 +145,11 @@ public class CourseInfoView extends View {
 
         //TODO: Add courses of a Instructor from a file
         //Getting Courses Information
-        for (int i = 0; i < model.getCourse().getStudents().size(); i++) {
+        for (int i = 0; i < model.getStudents().size(); i++) {
             ArrayList<Object> cTable = new ArrayList<Object>();
-            cTable.add(model.getCourse().getStudents().get(i).getModel().getId());
-            cTable.add(model.getCourse().getStudents().get(i).getModel().getName());
-            cTable.add(model.getCourse().getGrades().get(i));
+            cTable.add(model.getStudents().get(i).getModel().getId());
+            cTable.add(model.getStudents().get(i).getModel().getName());
+            cTable.add(model.getGrades().get(i));
             objects.add(cTable);
         }
 

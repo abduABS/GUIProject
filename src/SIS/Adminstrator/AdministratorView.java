@@ -1,5 +1,6 @@
 package SIS.Adminstrator;
 
+import SIS.Controller;
 import SIS.Instructor.InstructorController;
 import SIS.Main;
 import SIS.View;
@@ -19,11 +20,15 @@ public class AdministratorView extends View {
             for (int i = 0; i < Main.getUsers().size(); i++) {
                 if (Main.getUsers().get(i).getModel().getId().equals(iDField.getText())) {
                     flag = 1;
+                    Controller controller = Main.getUsers().get(i);
+                    controller.setAdmin(true);
+                    controller.view().getView();
                 }
             }
         }
         if (flag == 0) {
             JOptionPane.showConfirmDialog(null, "No user was found with the inputted ID", "Error", JOptionPane.DEFAULT_OPTION);
+
         }
     }
 

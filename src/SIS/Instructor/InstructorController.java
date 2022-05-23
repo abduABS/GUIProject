@@ -2,9 +2,8 @@ package SIS.Instructor;
 
 import SIS.Controller;
 import SIS.Course;
-import SIS.CourseInfo.CourseInfoController;
-import SIS.Model;
-import SIS.View;
+import SIS.CourseInfo.CourseController;
+import SIS.CourseInfo.CourseModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -64,10 +63,10 @@ public class InstructorController extends Controller{
         if (option == JOptionPane.OK_OPTION) {
             int flag =0;
             for(int i =0; i < model.getCourses().size(); i++){
-                if(model.getCourses().get(i).getNumber().equals(courseField.getText())){
+                if(model.getCourses().get(i).getModel().getNumber().equals(courseField.getText())){
                     flag = 1;
-                    CourseInfoController cController = new CourseInfoController(model.getCourses().get(i));
-                    cController.getView();
+                    model.getCourses().get(i).setAdmin(isAdmin);
+                    model.getCourses().get(i).getView();
                 }
             }
             if(flag == 0){
@@ -86,7 +85,7 @@ public class InstructorController extends Controller{
                     "Course Hours:", hoursField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                Course course = new Course(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
+                CourseModel course = new CourseModel(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
                 model.getCourses().add(course);
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.addRow(new Object[]{course.getName(), course.getNumber()});
