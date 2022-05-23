@@ -14,6 +14,8 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main {
+
+
     static ArrayList<Controller> users = new ArrayList<>();
     static ArrayList<Course> courses = new ArrayList<>();
     //
@@ -179,6 +181,9 @@ public class Main {
         return null;
     }
 
+    public static ArrayList<Controller> getUsers() {
+        return users;
+    }
     public static void readCoursesFromThisSemester() throws FileNotFoundException {
         int numStudents, credits;
         String name, number, dept, instructorId;

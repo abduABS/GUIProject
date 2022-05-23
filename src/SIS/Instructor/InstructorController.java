@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class InstructorController extends Controller {
+
+    private boolean isAdmin = false;
     private InstructorModel model;
     private InstructorView view;
     public InstructorController(){
@@ -24,6 +26,14 @@ public class InstructorController extends Controller {
     public InstructorController(String name, String id, String username, String password, String dept){
         model = new InstructorModel(name,id,username,password,dept);
         view = new InstructorView(this);
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public void getView(){
@@ -52,7 +62,7 @@ public class InstructorController extends Controller {
             for(int i =0; i < model.getCourses().size(); i++){
                 if(model.getCourses().get(i).getNumber().equals(courseField.getText())){
                     flag = 1;
-                    CourseInfoController cController = new CourseInfoController(model.getCourses().get(0));
+                    CourseInfoController cController = new CourseInfoController(model.getCourses().get(i));
                     cController.getView();
                 }
             }

@@ -2,8 +2,7 @@
 
 package SIS.CourseInfo;
 
-import SIS.Instructor.InstructorController;
-import SIS.Instructor.InstructorModel;
+
 import SIS.View;
 
 import javax.swing.*;
@@ -51,24 +50,20 @@ public class CourseInfoView extends View {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(new BorderLayout());
-        //JLabel label = new JLabel("Instructor");
-        //panel.add(label, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout());
         JButton saveBtn = new JButton("Save Course");
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a course save option
-                //control.saveCourse();
+                control.saveCourse();
             }
         });
         JButton loadBtn = new JButton("load Course");
         loadBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a course load
-                //control.loadCourse();
+                control.loadCourse();
             }
         });
         JButton gradeBtn = new JButton("Change Grade");
@@ -92,14 +87,14 @@ public class CourseInfoView extends View {
         JMenuItem saveItem = new JMenuItem("Save Course");
         saveItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.saveCourse();
+                control.saveCourse();
             }
         });
 
         JMenuItem loadItem = new JMenuItem("Load Course");
         loadItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.loadCourse();
+                control.loadCourse();
             }
         });
 

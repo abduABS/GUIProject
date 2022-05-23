@@ -87,7 +87,7 @@ public class StudentController extends Controller {
                 view.getFrame().validate();
 
 
-            } catch (FileNotFoundException e1) {// TODO Auto-generated catch block
+            } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
             } finally {
                 if (scan != null)
@@ -109,7 +109,6 @@ public class StudentController extends Controller {
                     fw.print(model.getRegisteredCourses().get(i).getName() + ";");
                     fw.print(model.getRegisteredCourses().get(i).getCredits() + "\n");
                 }
-                //TODO: Save courses from an arraylist
                 fw.close();
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
@@ -127,6 +126,7 @@ public class StudentController extends Controller {
                     "Course Hours:", hoursField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
+                //TODO:Change this implementation
                 Course course = new Course(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
                 model.getRegisteredCourses().add(course);
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
@@ -139,7 +139,7 @@ public class StudentController extends Controller {
 
         }
         else{
-            //TODO: handle error for more than 5 courses
+            JOptionPane.showConfirmDialog(null, "You cannnot register more than 5 courses","Error",JOptionPane.DEFAULT_OPTION);
         }
     }
 
