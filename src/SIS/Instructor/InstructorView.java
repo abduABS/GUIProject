@@ -55,7 +55,6 @@ public class InstructorView extends View{
         courseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               //TODO: Add a course info JFrame
                 control.courseInfo();
             }
         });
@@ -63,7 +62,6 @@ public class InstructorView extends View{
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a course addition JOptionPane
                 control.addCourse();
             }
         });
@@ -71,7 +69,6 @@ public class InstructorView extends View{
         passwordBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a change Password JOptionPane
                 control.changePass();
             }
         });
@@ -79,7 +76,6 @@ public class InstructorView extends View{
         nameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a change name JOptionPane
                 control.changeName();
             }
         });
@@ -93,7 +89,6 @@ public class InstructorView extends View{
 
         JMenuBar menuBar = new JMenuBar();
 
-        //TODO: Same thing for the buttons
         JMenu optionsMenu = new JMenu("Options");
         menuBar.add(optionsMenu);
         JMenuItem nameItem = new JMenuItem("Change Name");
@@ -156,12 +151,12 @@ public class InstructorView extends View{
         header4.add("Number");
         objects.add(header4);
 
-        //TODO: Add courses of a Instructor from a file
+
         //Getting Courses Information
         for(int i =0; i < model.getCourses().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();
-            cTable.add(model.getCourses().get(i).getName());
-            cTable.add(model.getCourses().get(i).getNumber());
+            cTable.add(model.getCourses().get(i).getModel().getName());
+            cTable.add(model.getCourses().get(i).getModel().getNumber());
             objects.add(cTable);
         }
 

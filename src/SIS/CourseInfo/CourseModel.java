@@ -1,11 +1,12 @@
-package SIS;
-import SIS.Instructor.InstructorController;
-import SIS.Instructor.InstructorModel;
-import SIS.Student.StudentController;
-import SIS.Student.StudentModel;
+package SIS.CourseInfo;
 
-import java.util.*;
-public class Course {
+import SIS.Instructor.InstructorController;
+import SIS.Model;
+import SIS.Student.StudentController;
+
+import java.util.ArrayList;
+
+public class CourseModel extends Model {
 
     private int credits;
     private String name;
@@ -24,13 +25,13 @@ public class Course {
         return -1.0d;
     }
 
-    public Course(String name, String number, int credits) {
+    public CourseModel(String name, String number, int credits) {
         this.name = name;
         this.number = number;
         this.credits = credits;
     }
 
-    public Course(String name, String number, int credits, String department, InstructorController instructor) {
+    public CourseModel(String name, String number, int credits, String department, InstructorController instructor) {
         this.name = name;
         this.number = number;
         this.credits = credits;
@@ -106,5 +107,4 @@ public class Course {
         return ("Department: " + department + " Number: " + number + " Instructor: "
                 + instructor);
     }
-
 }

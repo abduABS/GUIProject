@@ -26,7 +26,7 @@ public class AdministratorModel extends Model {
         return allStudents;
     }
 
-    public void setAllStudents(ArrayList<StudentController> allStudents) {
+    public synchronized void setAllStudents(ArrayList<StudentController> allStudents) {
         this.allStudents = allStudents;
     }
 
@@ -34,7 +34,7 @@ public class AdministratorModel extends Model {
         return allInstructors;
     }
 
-    public void setAllInstructors(ArrayList<InstructorController> allInstructors) {
+    public synchronized void setAllInstructors(ArrayList<InstructorController> allInstructors) {
         this.allInstructors = allInstructors;
     }
 

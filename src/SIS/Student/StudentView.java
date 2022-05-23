@@ -1,6 +1,5 @@
 package SIS.Student;
 
-import SIS.Course;
 import SIS.View;
 
 import javax.swing.*;
@@ -8,10 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
 //
 public class StudentView extends View{
@@ -116,15 +112,14 @@ public class StudentView extends View{
         objects.add(header3);
 
 
-        //TODO: Add courses of a student from a file
         //Getting Courses Information
         for(int i =0; i < model.getRegisteredCourses().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();
             cTable.add(i+1);
-            cTable.add(model.getRegisteredCourses().get(i).getName());
-            cTable.add(model.getRegisteredCourses().get(i).getNumber());
-            cTable.add(model.getRegisteredCourses().get(i).getCredits());
-            cTable.add(model.getRegisteredCourses().get(i).getStudentGrade(model.getId()));
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getName());
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getNumber());
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getCredits());
+            cTable.add(model.getRegisteredCourses().get(i).getModel().getStudentGrade(model.getId()));
             objects.add(cTable);
         }
 
