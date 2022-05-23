@@ -73,8 +73,7 @@ public class CourseInfoView extends View{
         gradeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a change Grade JOptionPane
-                //control.changeGrade();
+                control.changeGrade();
             }
         });
 
@@ -86,7 +85,6 @@ public class CourseInfoView extends View{
 
         JMenuBar menuBar = new JMenuBar();
 
-        //TODO: Same thing for the buttons
         JMenu optionsMenu = new JMenu("Options");
         menuBar.add(optionsMenu);
         JMenuItem saveItem = new JMenuItem("Save Course");
@@ -106,7 +104,7 @@ public class CourseInfoView extends View{
         JMenuItem changeItem = new JMenuItem("Change Grade");
         changeItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.changeGrade();
+                control.changeGrade();
             }
         });
 
@@ -118,7 +116,7 @@ public class CourseInfoView extends View{
         ArrayList<ArrayList<Object>> objects = new ArrayList<ArrayList<Object>>();
         ArrayList<Object> header = new ArrayList<Object>();
         header.add("Name");
-        header.add(model.getCourse().getInstructor());
+        header.add(model.getCourse().getInstructor().getModel().getName());
         header.add("ID");
         header.add(model.getCourse().getInstructor().getModel().getId());
         header.add("Department");
@@ -143,9 +141,9 @@ public class CourseInfoView extends View{
         //Getting Courses Information
         for(int i =0; i < model.getCourse().getStudents().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();
-            cTable.add(model.getCourse().getStudents().get(i).getId());
-            cTable.add(model.getCourse().getStudents().get(i).getName());
-            cTable.add(model.getCourse().getStudents().get(i).getGrade());
+            cTable.add(model.getCourse().getStudents().get(i).getModel().getId());
+            cTable.add(model.getCourse().getStudents().get(i).getModel().getName());
+            cTable.add(model.getCourse().getGrades().get(i));
             objects.add(cTable);
         }
 
@@ -171,6 +169,7 @@ public class CourseInfoView extends View{
         });
         table.setTableHeader(null);
         table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        table.getColumnModel().getColumn(2).setPreferredWidth(200);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
 

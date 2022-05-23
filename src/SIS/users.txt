@@ -1,5 +1,6 @@
-admin;radi;1234;radiriyas;radipassword;N/A;
+student;radi;1234;radiriyas;radipassword;SBA;
 student;abdu;2345;abdu;abdu;CSE;
+student;Layla;5678;layla;layla;CSE;
 admin;samir;3456;unclesam;samirpassword;N/A;
 instructor;Hicham;1010;gui;ilovejava;CSE;
 instructor;Raza;2020;phys;ilovephys;CAS;

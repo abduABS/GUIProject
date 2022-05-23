@@ -84,11 +84,11 @@ public class Main {
             }
 
             //then we update the students registered_courses to the courses he is registered in:
-            ArrayList<CourseStudent> students = c.getStudents();
+            ArrayList<StudentController> students = c.getStudents();
 
-            for (CourseStudent student : students) {
+            for (StudentController student : students) {
                 for (Controller user : users) {
-                    if (user.getModel().getId().compareTo(student.getId()) == 0) {
+                    if (user.getModel().getId().compareTo(student.getModel().getId()) == 0) {
                         StudentModel m = (StudentModel) user.getModel();
                         m.getRegisteredCourses().add(c);
                     }
@@ -199,13 +199,18 @@ public class Main {
             }
 
             Course course = new Course(name, number, credits, dept, instructor);
-
+            StudentController student = null;
             for (int i = 0; i < numStudents; i++) {
                 st = new StringTokenizer(scan.nextLine(), ";");
                 String sId = st.nextToken();
-                String sName = st.nextToken();
                 double sGrade = Double.parseDouble(st.nextToken());
-                course.addStudent(new CourseStudent(sId,sName,sGrade));
+                course.getGrades().add(sGrade);
+                for(int j =0; j < users.size(); j++){
+                    if(users.get(j).getModel().getId().equals(sId)){
+                        student = (StudentController)  users.get(j);
+                    }
+                }
+                course.addStudent(student);
             }
             courses.add(course);
             if (scan.hasNextLine())

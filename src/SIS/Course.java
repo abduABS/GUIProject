@@ -1,6 +1,7 @@
 package SIS;
 import SIS.Instructor.InstructorController;
 import SIS.Instructor.InstructorModel;
+import SIS.Student.StudentController;
 import SIS.Student.StudentModel;
 
 import java.util.*;
@@ -11,12 +12,13 @@ public class Course {
     private String number;
     private String department;
     private InstructorController instructor;
-    private ArrayList<CourseStudent> students = new ArrayList<CourseStudent>();
+    private ArrayList<StudentController> students = new ArrayList<StudentController>();
 
+    private ArrayList<Double> grades = new ArrayList<Double>();
     public Double getStudentGrade(String _id){
         for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getId().equals(_id)) {
-                return students.get(i).getGrade();
+            if (students.get(i).getModel().getId().equals(_id)) {
+                return grades.get(i);
             }
         }
         return -1.0d;
@@ -38,8 +40,8 @@ public class Course {
 
     public void printDetails() {
         for (int i = 0; i < students.size(); i++) {
-            System.out.println("Student id: " + students.get(i).getId() + " "
-                    + students.get(i).getGrade());
+            System.out.println("Student id: " + students.get(i).getModel().getId() + " "
+                    + grades.get(i));
         }
     }
 
@@ -62,11 +64,18 @@ public class Course {
         return instructor;
     }
 
-    public ArrayList<CourseStudent> getStudents() {
+    public ArrayList<StudentController> getStudents() {
         return students;
     }
 
-    // setters:
+    public ArrayList<Double> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(ArrayList<Double> grades) {
+        this.grades = grades;
+    }
+
     public void setName(String _n) {
         name = _n;
     }
@@ -88,7 +97,7 @@ public class Course {
     }
 
 
-    public void addStudent(CourseStudent student) {
+    public void addStudent(StudentController student) {
 
         students.add(student);
     }

@@ -44,8 +44,22 @@ public class InstructorController extends Controller {
     }
 
     public void courseInfo() {
-        CourseInfoController cController = new CourseInfoController(model.getCourses().get(0));
-        cController.getView();
+        JTextField courseField = new JTextField();
+        Object[] panel = {"Type course number to show:", courseField};
+        int option = JOptionPane.showConfirmDialog(null, panel, "Choose a course", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            int flag =0;
+            for(int i =0; i < model.getCourses().size(); i++){
+                if(model.getCourses().get(i).getNumber().equals(courseField.getText())){
+                    flag = 1;
+                    CourseInfoController cController = new CourseInfoController(model.getCourses().get(0));
+                    cController.getView();
+                }
+            }
+            if(flag == 0){
+                JOptionPane.showConfirmDialog(null, "No course was found with the inputted number","Error",JOptionPane.DEFAULT_OPTION);
+            }
+        }
     }
 
     public void addCourse() {
@@ -64,6 +78,9 @@ public class InstructorController extends Controller {
                 tableModel.addRow(new Object[]{course.getName(), course.getNumber()});
                 view.getFrame().validate();
             }
+        }
+        else{
+            JOptionPane.showConfirmDialog(null, "You cannot add more than 3 courses","Error",JOptionPane.DEFAULT_OPTION);
         }
     }
 

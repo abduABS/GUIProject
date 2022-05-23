@@ -31,7 +31,7 @@ public class CourseStudent {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 }
