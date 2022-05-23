@@ -70,7 +70,24 @@ public class Login {
         signIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                flag = 0;
                 login(userField,passField);
+                passField.setText("");
+                if (flag == 0) {
+                    int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        if (tries < 2) {
+                            tries++;
+                        } else {
+                            int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.OK_CANCEL_OPTION);
+                            if (option2 == JOptionPane.OK_OPTION) {
+                                System.exit(0);
+                            }
+                        }
+                    }
+
+                }
             }
         });
         exit.addActionListener(new ActionListener() {
@@ -99,26 +116,11 @@ public class Login {
                         threads.add(t);
                         t.start();
                         userField.setText("");
-                    }
-                }
-
-            }
-        passField.setText("");
-        if (flag == 0) {
-            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
-
-            if (option == JOptionPane.OK_OPTION) {
-                if (tries < 2) {
-                    tries++;
-                } else {
-                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.OK_CANCEL_OPTION);
-                    if (option2 == JOptionPane.OK_OPTION) {
-                        System.exit(0);
+                        tries = 0;
                     }
                 }
             }
 
-        }
     }
 
     private static boolean noDuplicateUser(String username) {
