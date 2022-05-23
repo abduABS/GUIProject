@@ -53,52 +53,35 @@ public class CourseInfoView extends View{
         //panel.add(label, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout());
-        JButton courseBtn = new JButton("Course(s) Info");
-        courseBtn.addActionListener(new ActionListener() {
+        JButton saveBtn = new JButton("Save Course");
+        saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               //TODO: Add a course info JFrame
-                control.courseInfo();
+               //TODO: Add a course save option
+                //control.saveCourse();
             }
         });
-        JButton addBtn = new JButton("Add Course");
-        addBtn.addActionListener(new ActionListener() {
+        JButton loadBtn = new JButton("load Course");
+        loadBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a course addition JOptionPane
-                control.addCourse();
+                //TODO: Add a course load
+                //control.loadCourse();
             }
         });
-        JButton passwordBtn = new JButton("Change Password");
-        passwordBtn.addActionListener(new ActionListener() {
+        JButton gradeBtn = new JButton("Change Grade");
+        gradeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add a change Password JOptionPane
-                control.changePass();
+                //TODO: Add a change Grade JOptionPane
+                //control.changeGrade();
             }
         });
-        JButton nameBtn = new JButton("Change Name");
-        nameBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: Add a change name JOptionPane
-                control.changeName();
-            }
-        });
-//        JButton gradeBtn = new JButton("Change Grade");
-//        gradeBtn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //TODO: Add a change grade JOptionPane
-//                  control.changeGrade();
-//            }
-//        });
 
-        btnPanel.add(courseBtn);
-        btnPanel.add(addBtn);
-        btnPanel.add(passwordBtn);
-        btnPanel.add(nameBtn);
-//        btnPanel.add(gradeBtn);
+
+        btnPanel.add(saveBtn);
+        btnPanel.add(loadBtn);
+        btnPanel.add(gradeBtn);
         panel.add(btnPanel, BorderLayout.SOUTH);
 
         JMenuBar menuBar = new JMenuBar();
@@ -106,74 +89,63 @@ public class CourseInfoView extends View{
         //TODO: Same thing for the buttons
         JMenu optionsMenu = new JMenu("Options");
         menuBar.add(optionsMenu);
-        JMenuItem nameItem = new JMenuItem("Change Name");
-        nameItem.addActionListener(new ActionListener() {
+        JMenuItem saveItem = new JMenuItem("Save Course");
+        saveItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.loadCourses();
-                control.changeName();
+                //control.saveCourse();
             }
         });
 
-        JMenuItem passwordItem = new JMenuItem("Change Password");
-        passwordItem.addActionListener(new ActionListener() {
+        JMenuItem loadItem = new JMenuItem("Load Course");
+        loadItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.loadCourses();
-                control.changePass();
+                //control.loadCourse();
             }
         });
 
-        optionsMenu.add(nameItem);
-        optionsMenu.add(passwordItem);
-
-        JMenu coursesMenu = new JMenu("Courses");
-        menuBar.add(coursesMenu);
-        JMenuItem courseItem = new JMenuItem("View Course");
-        nameItem.addActionListener(new ActionListener() {
+        JMenuItem changeItem = new JMenuItem("Change Grade");
+        changeItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.loadCourses();
-                control.courseInfo();
+                //control.changeGrade();
             }
         });
 
-        JMenuItem addItem = new JMenuItem("Add Course");
-        addItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //control.loadCourses();
-                control.addCourse();
-            }
-        });
+        optionsMenu.add(saveItem);
+        optionsMenu.add(loadItem);
+        optionsMenu.add(changeItem);
 
-
-        coursesMenu.add(courseItem);
-        coursesMenu.add(addItem);
 
         ArrayList<ArrayList<Object>> objects = new ArrayList<ArrayList<Object>>();
         ArrayList<Object> header = new ArrayList<Object>();
         header.add("Name");
-        header.add(model.getName());
+        header.add(model.getCourse().getInstructor());
         header.add("ID");
-        header.add(model.getId());
+        header.add(model.getCourse().getInstructor().getModel().getId());
         header.add("Department");
-        header.add(model.getDepartment());
+        header.add(model.getCourse().getInstructor().getModel().getDepartment());
         objects.add(header);
         ArrayList<Object> header2 = new ArrayList<Object>();
         header2.add("Term");
         header2.add("Spring 2022");
         objects.add(header2);
         ArrayList<Object> header3 = new ArrayList<Object>();
-        header3.add("Courses");
+        header3.add("Course");
+        header3.add(model.getCourse().getNumber());
+        header3.add(model.getCourse().getName());
         objects.add(header3);
         ArrayList<Object> header4 = new ArrayList<Object>();
+        header4.add("ID");
         header4.add("Name");
-        header4.add("Number");
+        header4.add("Grade");
         objects.add(header4);
 
         //TODO: Add courses of a Instructor from a file
         //Getting Courses Information
-        for(int i =0; i < model.getCourses().size(); i++){
+        for(int i =0; i < model.getCourse().getStudents().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();
-            cTable.add(model.getCourses().get(i).getName());
-            cTable.add(model.getCourses().get(i).getNumber());
+            cTable.add(model.getCourse().getStudents().get(i).getId());
+            cTable.add(model.getCourse().getStudents().get(i).getName());
+            cTable.add(model.getCourse().getStudents().get(i).getGrade());
             objects.add(cTable);
         }
 

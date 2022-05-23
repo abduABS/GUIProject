@@ -84,20 +84,11 @@ public class InstructorView extends View{
             }
         });
 
-//        JButton gradeBtn = new JButton("Change Grade");
-//        gradeBtn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //TODO: Add a change grade JOptionPane
-//                  control.changeGrade();
-//            }
-//        });
-
         btnPanel.add(courseBtn);
         btnPanel.add(addBtn);
         btnPanel.add(passwordBtn);
         btnPanel.add(nameBtn);
-//        btnPanel.add(gradeBtn);
+
         panel.add(btnPanel, BorderLayout.SOUTH);
 
         JMenuBar menuBar = new JMenuBar();

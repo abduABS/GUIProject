@@ -8,15 +8,16 @@ import java.util.ArrayList;
 public class CourseInfoModel extends Model {
 
     Course course;
-    public CourseInfoModel() {
-        super();
-        course = new Course("Example","EXE",3);
-    }
-
 
     public CourseInfoModel(Course course) {
-
+        this.course = course;
     }
 
+    public Course getCourse() {
+        return course;
+    }
 
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }

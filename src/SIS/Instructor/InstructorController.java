@@ -31,12 +31,12 @@ public class InstructorController extends Controller {
     }
 
 
-    public View view() {
-        return (InstructorView)view;
+    public InstructorView view() {
+        return view;
     }
 
-    public Model getModel() {
-        return (InstructorModel)model;
+    public InstructorModel getModel() {
+        return model;
     }
 
     public void setModel() {
@@ -44,7 +44,7 @@ public class InstructorController extends Controller {
     }
 
     public void courseInfo() {
-        CourseInfoController cController = new CourseInfoController();
+        CourseInfoController cController = new CourseInfoController(model.getCourses().get(0));
         cController.getView();
     }
 

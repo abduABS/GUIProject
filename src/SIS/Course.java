@@ -1,4 +1,6 @@
 package SIS;
+import SIS.Instructor.InstructorController;
+import SIS.Instructor.InstructorModel;
 import SIS.Student.StudentModel;
 
 import java.util.*;
@@ -8,14 +10,13 @@ public class Course {
     private String name;
     private String number;
     private String department;
-    private String instructor;
-    private ArrayList<String> students = new ArrayList<String>();
-    private ArrayList<Double> grades = new ArrayList<Double>();
+    private InstructorController instructor;
+    private ArrayList<CourseStudent> students = new ArrayList<CourseStudent>();
 
     public Double getStudentGrade(String _id){
         for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).equals(_id)) {
-                return grades.get(i);
+            if (students.get(i).getId().equals(_id)) {
+                return students.get(i).getGrade();
             }
         }
         return -1.0d;
@@ -27,7 +28,7 @@ public class Course {
         this.credits = credits;
     }
 
-    public Course(String name, String number, int credits, String department, String instructor) {
+    public Course(String name, String number, int credits, String department, InstructorController instructor) {
         this.name = name;
         this.number = number;
         this.credits = credits;
@@ -36,9 +37,9 @@ public class Course {
     }
 
     public void printDetails() {
-        for (int i = 0; i < grades.size(); i++) {
-            System.out.println("Student id: " + students.get(i) + " "
-                    + grades.get(i));
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println("Student id: " + students.get(i).getId() + " "
+                    + students.get(i).getGrade());
         }
     }
 
@@ -57,11 +58,11 @@ public class Course {
         return department;
     }
 
-    public String getInstructor() {
+    public InstructorController getInstructor() {
         return instructor;
     }
 
-    public ArrayList<String> getStudents() {
+    public ArrayList<CourseStudent> getStudents() {
         return students;
     }
 
@@ -82,22 +83,14 @@ public class Course {
         department = _d;
     }
 
-    public void setInstructor(String _s) {
-        instructor = _s;
+    public void setInstructor(InstructorController instructor) {
+        this.instructor = instructor;
     }
 
-    public void addStudent(StudentModel s) {
 
-        students.add(s.getId());
-    }
+    public void addStudent(CourseStudent student) {
 
-    public void addStudent(String _id) {
-
-        students.add(_id);
-    }
-
-    public void addGrade(Double grade) {
-        grades.add(grade);
+        students.add(student);
     }
 
     public String toString() {
