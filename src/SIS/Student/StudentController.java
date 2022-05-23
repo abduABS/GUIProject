@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class StudentController extends Controller{
+public class StudentController extends Controller {
 
     private boolean isAdmin = false;
     private StudentModel model;
@@ -26,9 +26,10 @@ public class StudentController extends Controller{
         isAdmin = admin;
     }
 
-    public void run(){
+    public void run() {
         view.getView();
     }
+
     public StudentController() {
         model = new StudentModel();
         model.setGPA(calGPA(model));
@@ -141,7 +142,6 @@ public class StudentController extends Controller{
             Object[] panel = {"Course Number:", numberField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                //TODO:Change this implementation
                 for (int j = 0; j < Main.getUsers().size(); j++) {
                     if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
                         model.getRegisteredCourses().add(Main.getCourses().get(j));
@@ -151,16 +151,15 @@ public class StudentController extends Controller{
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.removeRow(tableModel.getRowCount() - 1);
                 int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
-                tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getName(),
-                        model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getNumber(),
-                        model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getCredits()});
+                tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getName(),
+                        model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getNumber(),
+                        model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getCredits()});
                 tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
                 view.getFrame().validate();
             }
 
-        }
-        else{
-            JOptionPane.showConfirmDialog(null, "You cannnot register more than 5 courses","Error",JOptionPane.DEFAULT_OPTION);
+        } else {
+            JOptionPane.showConfirmDialog(null, "You cannnot register more than 5 courses", "Error", JOptionPane.DEFAULT_OPTION);
         }
     }
 

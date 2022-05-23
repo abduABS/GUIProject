@@ -160,8 +160,8 @@ public class InstructorView extends View{
         //Getting Courses Information
         for(int i =0; i < model.getCourses().size(); i++){
             ArrayList<Object> cTable = new ArrayList<Object>();
-            cTable.add(model.getCourses().get(i).getName());
-            cTable.add(model.getCourses().get(i).getNumber());
+            cTable.add(model.getCourses().get(i).getModel().getName());
+            cTable.add(model.getCourses().get(i).getModel().getNumber());
             objects.add(cTable);
         }
 

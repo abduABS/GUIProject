@@ -1,7 +1,6 @@
 package SIS.Student;
 import SIS.*;
 
-import SIS.Course;
 import SIS.CourseInfo.CourseController;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class StudentModel extends Model {
     public void setGPA(double _GPA) { GPA = _GPA;}
 
     public synchronized void printCourses(){
-        for (Course c :
+        for (CourseController c :
                 registeredCourses) {
             System.out.println(c.getModel().getName());
         }
@@ -65,7 +64,7 @@ public class StudentModel extends Model {
     }
 
 
-    public synchronized ArrayList<Course> getRegisteredCourses(){
+    public synchronized ArrayList<CourseController> getRegisteredCourses(){
         return  registeredCourses;
     }
 }

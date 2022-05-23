@@ -1,9 +1,7 @@
 package SIS.Instructor;
 
 import SIS.Controller;
-import SIS.Course;
-import SIS.CourseInfo.CourseController;
-import SIS.CourseInfo.CourseModel;
+import SIS.Main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -80,15 +78,17 @@ public class InstructorController extends Controller{
             JTextField nameField = new JTextField();
             JTextField numberField = new JTextField();
             JTextField hoursField = new JTextField();
-            Object[] panel = {"Course Name:", nameField,
-                    "Course Number:", numberField,
-                    "Course Hours:", hoursField};
+            Object[] panel = {"Course Name:", nameField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                CourseModel course = new CourseModel(nameField.getText(), numberField.getText(), Integer.parseInt(hoursField.getText()));
-                model.getCourses().add(course);
+                for (int j = 0; j < Main.getUsers().size(); j++) {
+                    if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
+                        model.getCourses().add(Main.getCourses().get(j));
+                        model.getCourses().get(j).getModel().setInstructor(this);
+                    }
+                }
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
-                tableModel.addRow(new Object[]{course.getName(), course.getNumber()});
+                tableModel.addRow(new Object[]{model.getCourses().get(model.getCourses().size() - 1).getModel().getName(), model.getCourses().get(model.getCourses().size() - 1).getModel().getNumber()});
                 view.getFrame().validate();
             }
         }

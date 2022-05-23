@@ -1,8 +1,6 @@
 package SIS.Instructor;
 import SIS.*;
-import SIS.Course;
 import SIS.CourseInfo.CourseController;
-import SIS.CourseInfo.CourseModel;
 
 import java.util.ArrayList;
 
@@ -33,18 +31,18 @@ public class InstructorModel extends Model {
         return courses;
     }
 
-    public synchronized void setCourses(ArrayList<Course> courses) {
+    public synchronized void setCourses(ArrayList<CourseController> courses) {
         this.courses = courses;
     }
 
-    public synchronized void addCourse(Course c){
+    public synchronized void addCourse(CourseController c){
         courses.add(c);
     }
 
     public synchronized void printCourses(){
         for (Course c :
                 courses) {
-            System.out.println(c.getName());
+            System.out.println(c.getModel().getName());
         }
     }
     @Override
