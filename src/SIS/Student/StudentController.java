@@ -141,20 +141,28 @@ public class StudentController extends Controller {
             JTextField hoursField = new JTextField();
             Object[] panel = {"Course Number:", numberField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
+            int flag =0;
             if (option == JOptionPane.OK_OPTION) {
                 for (int j = 0; j < Main.getUsers().size(); j++) {
                     if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
+                        flag = 1;
                         model.getRegisteredCourses().add(Main.getCourses().get(j));
                         model.getRegisteredCourses().get(j).getModel().addStudent(this);
                     }
                 }
-                DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
-                tableModel.removeRow(tableModel.getRowCount() - 1);
-                int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
-                tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getName(),
-                        model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getNumber(),
-                        model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getCredits()});
-                tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
+                if(flag != 0){
+                    DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
+                    tableModel.removeRow(tableModel.getRowCount() - 1);
+                    int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
+                    tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getName(),
+                            model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getNumber(),
+                            model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getCredits()});
+                    tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
+                }
+                else{
+                    JOptionPane.showConfirmDialog(null, "Course was not found", "Error", JOptionPane.DEFAULT_OPTION);
+                }
+
                 view.getFrame().validate();
             }
 

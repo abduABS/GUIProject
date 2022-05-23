@@ -59,9 +59,7 @@ public class StudentModel extends Model {
     }
 
     //implement:
-    public void registerCourse(){
 
-    }
 
 
     public synchronized ArrayList<CourseController> getRegisteredCourses(){
