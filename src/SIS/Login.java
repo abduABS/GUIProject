@@ -96,14 +96,14 @@ public class Login {
             }
 
         if (flag == 0) {
-            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.DEFAULT_OPTION);
 
-            if (option == JOptionPane.OK_OPTION) {
+            if (option == JOptionPane.OK_OPTION || option == JOptionPane.CLOSED_OPTION) {
                 if (tries < 2) {
                     tries++;
                 } else {
-                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.OK_CANCEL_OPTION);
-                    if (option2 == JOptionPane.OK_OPTION) {
+                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.DEFAULT_OPTION);
+                    if (option2 == JOptionPane.OK_OPTION || option == JOptionPane.CLOSED_OPTION) {
                         System.exit(0);
                     }
                 }
