@@ -1,8 +1,8 @@
 package SIS;
 
 import SIS.Adminstrator.AdministratorController;
-import SIS.CourseInfo.CourseController;
-import SIS.CourseInfo.CourseModel;
+import SIS.Course.CourseController;
+import SIS.Course.CourseModel;
 import SIS.Instructor.InstructorController;
 import SIS.Instructor.InstructorModel;
 import SIS.Student.StudentController;
@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;

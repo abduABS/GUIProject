@@ -89,8 +89,7 @@ public class StudentView extends View{
             }
         });
 
-        ArrayList<ArrayList<Object>> objects = new
-                ArrayList<ArrayList<Object>>();
+        ArrayList<ArrayList<Object>> objects = new ArrayList<ArrayList<Object>>();
         ArrayList<Object> header = new ArrayList<Object>();
         header.add("Name");
         header.add(model.getName());

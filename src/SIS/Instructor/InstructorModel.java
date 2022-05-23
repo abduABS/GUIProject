@@ -1,6 +1,6 @@
 package SIS.Instructor;
 import SIS.*;
-import SIS.CourseInfo.CourseController;
+import SIS.Course.CourseController;
 
 import java.util.ArrayList;
 

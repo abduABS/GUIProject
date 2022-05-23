@@ -1,4 +1,4 @@
-package SIS.CourseInfo;
+package SIS.Course;
 
 import SIS.*;
 import SIS.Instructor.InstructorController;
@@ -40,8 +40,7 @@ public class CourseController {
     public void changeGrade() {
         JTextField iDField = new JTextField();
         JTextField gradeField = new JTextField();
-        Object[] panel = {"Student ID:", iDField,
-                "New Grade:", gradeField};
+        Object[] panel = {"Student ID:", iDField, "New Grade:", gradeField};
         int option = JOptionPane.showConfirmDialog(null, panel, "Change Student Grade", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             int flag = 0;
@@ -189,10 +188,10 @@ public class CourseController {
                 fw.print(model.getNumber() + ";");
                 fw.print(model.getDepartment() + ";");
                 fw.print(model.getInstructor().getModel().getId() + ";");
-                fw.print(model.getCredits() + ";\n");
+                fw.print(model.getCredits());
                 for (int i = 0; i < model.getStudents().size(); i++) {
-                    fw.print(model.getStudents().get(i).getModel().getId() + ";");
-                    fw.print(model.getGrades().get(i) + "\n");
+                    fw.print("/n" + model.getStudents().get(i).getModel().getId() + ";");
+                    fw.print(model.getGrades().get(i));
                 }
                 //TODO: Save courses from an arraylist
                 fw.close();

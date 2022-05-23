@@ -1,4 +1,4 @@
-package SIS.CourseInfo;
+package SIS.Course;
 
 import SIS.Instructor.InstructorController;
 import SIS.Model;
