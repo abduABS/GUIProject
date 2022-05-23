@@ -151,7 +151,9 @@ public class StudentController extends Controller{
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.removeRow(tableModel.getRowCount() - 1);
                 int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
-                tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getName(), course.getNumber(), course.getCredits()});
+                tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getName(),
+                        model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getNumber(),
+                        model.getRegisteredCourses().get(model.getRegisteredCourses().size()-1).getModel().getCredits()});
                 tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
                 view.getFrame().validate();
             }
