@@ -19,6 +19,9 @@ public class Main {
     //
     static int flag = 0;
     static int tries = 0;
+    
+    // static String path = new String("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\");
+    static String path = new String("C:\\Users\\Uncle Sam\\Desktop\\sthyaVERAT\\4 FUN ya Practice\\GUIProject\\src\\SIS\\");
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -54,15 +57,15 @@ public class Main {
         login();
 
         //Flag Validation Mechanism
-        if (flag == 0) {
-            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
+        while (flag == 0) {
+            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.DEFAULT_OPTION);
 
-            if (option == JOptionPane.OK_OPTION) {
-                if (tries <= 3) {
+            if (option == JOptionPane.OK_OPTION || option == JOptionPane.CLOSED_OPTION) {
+                if (tries <= 2) {
                     login();
                 } else {
-                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.OK_CANCEL_OPTION);
-                    if (option2 == JOptionPane.OK_OPTION) {
+                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.DEFAULT_OPTION);
+                    if (option2 == JOptionPane.OK_OPTION || option == JOptionPane.CLOSED_OPTION) {
                         System.exit(0);
                     }
                 }
@@ -108,13 +111,12 @@ public class Main {
         if (option == JOptionPane.OK_OPTION) {
             String username = userField.getText();
             String password = new String(passField.getPassword());
-
+            
+            tries++;
             for (Controller user : users) {
                 if (user.getModel().getUsername().compareTo(username) == 0 && user.getModel().getPassword().compareTo(password) == 0) {
                     flag = 1;
                     user.view().getView();
-                } else {
-                    tries++;
                 }
             }
 
@@ -150,7 +152,7 @@ public class Main {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password, type, additional;
-        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\users.txt"));
+        Scanner scan = new Scanner(new File(path + "users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
@@ -183,7 +185,7 @@ public class Main {
         int numStudents, credits;
         String name, number, dept, instructorId;
         InstructorController instructor = null;
-        Scanner scan = new Scanner(new File("C:\\Users\\abdus\\IdeaProjects\\test\\src\\SIS\\spring2022.txt"));
+        Scanner scan = new Scanner(new File(path + "spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());
