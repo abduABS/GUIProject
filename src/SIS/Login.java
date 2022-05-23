@@ -20,7 +20,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Login {
-    public static JFrame frame;
+    public static JFrame frmLoginMenu;
     int numOfUsers = 0;
     static ArrayList<Controller> users = new ArrayList<Controller>();
     static ArrayList<CourseController> courses = new ArrayList<CourseController>();
@@ -49,24 +49,38 @@ public class Login {
         updateAllUsers();
     }
 
+    /**
+     * @wbp.parser.entryPoint
+     */
     public static void loginScreen(){
-        frame = new JFrame();
-        frame.setBounds(300, 300, 600, 300);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frmLoginMenu = new JFrame();
+        frmLoginMenu.setTitle("Login Menu");
+        frmLoginMenu.setBounds(300, 300, 600, 300);
+        frmLoginMenu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel contentPane = new JPanel(new GridLayout(0,2));
         JLabel username = new JLabel("Username: ");
+        username.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        username.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel password = new JLabel("Password: ");
+        password.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        password.setHorizontalAlignment(SwingConstants.CENTER);
 
         JTextField userField = new JTextField();
+        userField.setHorizontalAlignment(SwingConstants.CENTER);
+        userField.setFont(new Font("Tahoma", Font.PLAIN, 24));
         JPasswordField passField = new JPasswordField();
+        passField.setHorizontalAlignment(SwingConstants.CENTER);
+        passField.setFont(new Font("Tahoma", Font.PLAIN, 24));
         contentPane.add(username);
         contentPane.add(userField);
         contentPane.add(password);
         contentPane.add(passField);
 
         JButton signIn = new JButton("Sign in");
+        signIn.setFont(new Font("Tahoma", Font.BOLD, 24));
         JButton exit = new JButton("Exit");
+        exit.setFont(new Font("Tahoma", Font.BOLD, 24));
 
         signIn.addActionListener(new ActionListener() {
             @Override
@@ -83,8 +97,8 @@ public class Login {
 
         contentPane.add(signIn);
         contentPane.add(exit);
-        frame.setContentPane(contentPane);
-        frame.setVisible(true);
+        frmLoginMenu.setContentPane(contentPane);
+        frmLoginMenu.setVisible(true);
     }
     public static void login(JTextField userField, JPasswordField passField) {
 
