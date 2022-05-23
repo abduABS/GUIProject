@@ -1,6 +1,6 @@
 package SIS;
 
-public abstract class Controller implements Runnable{
+public abstract class Controller extends Thread{
     abstract  public View view();
 
     abstract public Model getModel();

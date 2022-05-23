@@ -27,19 +27,19 @@ public class InstructorModel extends Model {
         this.department = department;
     }
 
-    public ArrayList<Course> getCourses() {
+    public synchronized ArrayList<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(ArrayList<Course> courses) {
+    public synchronized void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
 
-    public void addCourse(Course c){
+    public synchronized void addCourse(Course c){
         courses.add(c);
     }
 
-    public void printCourses(){
+    public synchronized void printCourses(){
         for (Course c :
                 courses) {
             System.out.println(c.getName());

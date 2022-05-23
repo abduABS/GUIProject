@@ -51,7 +51,7 @@ public class StudentModel extends Model {
     public double getGPA() {return GPA;}
     public void setGPA(double _GPA) { GPA = _GPA;}
 
-    public void printCourses(){
+    public synchronized void printCourses(){
         for (Course c :
                 registeredCourses) {
             System.out.println(c.getName());
@@ -64,7 +64,7 @@ public class StudentModel extends Model {
     }
 
 
-    public ArrayList<Course> getRegisteredCourses(){
+    public synchronized ArrayList<Course> getRegisteredCourses(){
         return  registeredCourses;
     }
 }

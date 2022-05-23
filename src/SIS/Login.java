@@ -24,7 +24,7 @@ public class Login {
     static ArrayList<Course> courses = new ArrayList<Course>();
 
     static ArrayList<Thread> threads = new ArrayList<Thread>();
-    //
+
     static int flag = 0;
     static int tries = 0;
 
@@ -46,7 +46,7 @@ public class Login {
     public static void loginScreen(){
         frame = new JFrame();
         frame.setBounds(300, 300, 600, 300);
-//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel contentPane = new JPanel(new GridLayout(0,2));
         JLabel username = new JLabel("Username: ");
@@ -89,12 +89,16 @@ public class Login {
                 if (user.getModel().getUsername().compareTo(username) == 0 && user.getModel().getPassword().compareTo(password) == 0) {
                     flag = 1;
 //                    user.view().getView();
-                    Thread t = new Thread(user);
-                    t.start();
+                    Thread t = new Thread(user,username);
+                    if(noDuplicateUser(username)) {
+                        threads.add(t);
+                        t.start();
+                        userField.setText("");
+                    }
                 }
 
             }
-
+        passField.setText("");
         if (flag == 0) {
             int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
 
@@ -110,6 +114,17 @@ public class Login {
             }
 
         }
+    }
+
+    private static boolean noDuplicateUser(String username) {
+        for (Thread t :
+                threads) {
+            if(t.getName().compareTo(username)==0) {
+                int option = JOptionPane.showConfirmDialog(null, "User already logged in to the system", "Error", JOptionPane.OK_CANCEL_OPTION);
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void readRegisteredUsers() throws FileNotFoundException {
