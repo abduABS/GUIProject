@@ -27,7 +27,7 @@ public class InstructorModel extends Model {
         this.department = department;
     }
 
-    public synchronized ArrayList<Course> getCourses() {
+    public synchronized ArrayList<CourseController> getCourses() {
         return courses;
     }
 
@@ -40,7 +40,7 @@ public class InstructorModel extends Model {
     }
 
     public synchronized void printCourses(){
-        for (Course c :
+        for (CourseController c :
                 courses) {
             System.out.println(c.getModel().getName());
         }
