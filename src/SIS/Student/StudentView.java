@@ -75,6 +75,11 @@ public class StudentView extends View{
         frame.setVisible(true);
     }
 
+    @Override
+    public void setView(JFrame frame) {
+        this.frame = frame;
+    }
+
     public void currentSemGUI() {
         current = new JFrame();
         current.setBounds(300, 300, 600, 300);
