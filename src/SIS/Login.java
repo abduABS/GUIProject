@@ -147,7 +147,7 @@ public class Login {
 
     public static void readRegisteredUsers() throws FileNotFoundException {
         String name, id, username, password, type, additional;
-        Scanner scan = new Scanner(new File("src/SIS/users.txt"));
+        Scanner scan = new Scanner(new File("users.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             type = st.nextToken();
@@ -179,7 +179,7 @@ public class Login {
         int numStudents, credits;
         String name, number, dept, instructorId;
         InstructorController instructor = null;
-        Scanner scan = new Scanner(new File("src/SIS/spring2022.txt"));
+        Scanner scan = new Scanner(new File("spring2022.txt"));
         StringTokenizer st = new StringTokenizer(scan.nextLine(), ";");
         while (scan.hasNextLine() && st.hasMoreTokens()) {
             numStudents = Integer.parseInt(st.nextToken());
