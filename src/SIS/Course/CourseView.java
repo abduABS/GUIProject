@@ -143,7 +143,6 @@ public class CourseView extends View {
         header4.add("Grade");
         objects.add(header4);
 
-        //TODO: Add courses of a Instructor from a file
         //Getting Courses Information
         for (int i = 0; i < model.getStudents().size(); i++) {
             ArrayList<Object> cTable = new ArrayList<Object>();
@@ -184,6 +183,11 @@ public class CourseView extends View {
         frame.setJMenuBar(menuBar);
         frame.setContentPane(panel);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void setView(JFrame frame) {
+        this.frame = frame;
     }
 
     public void setView() {

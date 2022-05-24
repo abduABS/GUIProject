@@ -35,7 +35,7 @@ public class AdministratorView extends View {
         }
     }
 
-    public void setView() {
+    public void setView(JFrame frame) {
 
     }
 }

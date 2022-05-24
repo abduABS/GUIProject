@@ -190,8 +190,8 @@ public class InstructorView extends View{
         frame.setVisible(true);
     }
 
-    public void setView() {
-
+    public void setView(JFrame frame) {
+        this.frame = frame;
     }
 
 

@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-//
+
 public class StudentView extends View{
     private Object[][] obArr;
     private StudentController control;
@@ -217,8 +217,8 @@ public class StudentView extends View{
 
     }
 
-    public void setView() {
-
+    public void setView(JFrame frame) {
+        this.frame = frame;
     }
 
 
