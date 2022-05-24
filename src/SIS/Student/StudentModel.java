@@ -1,7 +1,7 @@
 package SIS.Student;
 import SIS.*;
 
-import SIS.CourseInfo.CourseController;
+import SIS.Course.CourseController;
 
 import java.util.ArrayList;
 

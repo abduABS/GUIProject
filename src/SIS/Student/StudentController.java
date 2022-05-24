@@ -1,8 +1,6 @@
 package SIS.Student;
 
 import SIS.*;
-import SIS.CourseInfo.CourseController;
-import SIS.CourseInfo.CourseModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -143,7 +141,7 @@ public class StudentController extends Controller {
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             int flag =0;
             if (option == JOptionPane.OK_OPTION) {
-                for (int j = 0; j < Main.getUsers().size(); j++) {
+                for (int j = 0; j < Main.getCourses().size(); j++) {
                     if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
                         flag = 1;
                         model.getRegisteredCourses().add(Main.getCourses().get(j));
