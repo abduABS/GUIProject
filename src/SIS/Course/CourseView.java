@@ -59,7 +59,7 @@ public class CourseView extends View {
                 control.saveCourse();
             }
         });
-        JButton loadBtn = new JButton("load Course");
+        JButton loadBtn = new JButton("Load Course");
         loadBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
