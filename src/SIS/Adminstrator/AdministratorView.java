@@ -26,6 +26,9 @@ public class AdministratorView extends View {
                 }
             }
         }
+        else if (option == JOptionPane.CANCEL_OPTION) {
+            flag = -1;
+        }
         if (flag == 0) {
             JOptionPane.showConfirmDialog(null, "No user was found with the inputted ID", "Error", JOptionPane.DEFAULT_OPTION);
 

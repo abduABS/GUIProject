@@ -39,12 +39,6 @@ public class CourseModel extends Model {
         this.instructor = instructor;
     }
 
-    public void printDetails() {
-        for (int i = 0; i < students.size(); i++) {
-            System.out.println("Student id: " + students.get(i).getModel().getId() + " "
-                    + grades.get(i));
-        }
-    }
 
     public int getCredits() {
         return credits;

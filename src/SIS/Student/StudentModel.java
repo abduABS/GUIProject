@@ -46,16 +46,7 @@ public class StudentModel extends Model {
     public void setMajor(String _major) { major = _major;}
     public double getGPA() {return GPA;}
     public void setGPA(double _GPA) { GPA = _GPA;}
-
-    public synchronized void printCourses(){
-        for (CourseController c :
-                registeredCourses) {
-            System.out.println(c.getModel().getName());
-        }
-    }
-
-    //implement:
-
+    
 
 
     public synchronized ArrayList<CourseController> getRegisteredCourses(){

@@ -104,7 +104,7 @@ public class StudentController extends Controller {
 
 
             } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
+                JOptionPane.showConfirmDialog(null, "No user was found with the inputted ID", "Error", JOptionPane.DEFAULT_OPTION);
             } finally {
                 if (scan != null)
                     scan.close();
@@ -127,7 +127,7 @@ public class StudentController extends Controller {
                 }
                 fw.close();
             } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
+                JOptionPane.showConfirmDialog(null, "No user was found with the inputted ID", "Error", JOptionPane.DEFAULT_OPTION);
             }
         }
     }
@@ -143,12 +143,24 @@ public class StudentController extends Controller {
             if (option == JOptionPane.OK_OPTION) {
                 for (int j = 0; j < Main.getCourses().size(); j++) {
                     if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
-                        flag = 1;
-                        model.getRegisteredCourses().add(Main.getCourses().get(j));
-                        model.getRegisteredCourses().get(j).getModel().addStudent(this);
+                        if(Main.getCourses().get(j).getModel().getStudents().size() < 20){
+                            model.getRegisteredCourses().add(Main.getCourses().get(j));
+                            model.getRegisteredCourses().get(j).getModel().addStudent(this);
+                            flag = 1;
+                        }
+                        else{
+                            flag = -1;
+                        }
                     }
                 }
-                if(flag != 0){
+
+                if(flag == 0){
+                    JOptionPane.showConfirmDialog(null, "Course was not found", "Error", JOptionPane.DEFAULT_OPTION);
+                }
+                else if(flag == -1){
+                    JOptionPane.showConfirmDialog(null, "Course is full", "Error", JOptionPane.DEFAULT_OPTION);
+                }
+                else{
                     DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                     tableModel.removeRow(tableModel.getRowCount() - 1);
                     int courseNum = 1 + Integer.valueOf(tableModel.getValueAt(tableModel.getRowCount() - 1, 0).toString());
@@ -156,9 +168,6 @@ public class StudentController extends Controller {
                             model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getNumber(),
                             model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getCredits()});
                     tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
-                }
-                else{
-                    JOptionPane.showConfirmDialog(null, "Course was not found", "Error", JOptionPane.DEFAULT_OPTION);
                 }
 
                 view.getFrame().validate();

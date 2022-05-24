@@ -1,8 +1,8 @@
 package SIS;
 
 import SIS.Adminstrator.AdministratorController;
-import SIS.CourseInfo.CourseController;
-import SIS.CourseInfo.CourseModel;
+import SIS.Course.CourseController;
+import SIS.Course.CourseModel;
 import SIS.Instructor.InstructorController;
 import SIS.Instructor.InstructorModel;
 import SIS.Student.StudentController;
@@ -14,13 +14,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Login {
-    public static JFrame frmLoginMenu;
+    public static JFrame frame;
     int numOfUsers = 0;
     static ArrayList<Controller> users = new ArrayList<Controller>();
     static ArrayList<CourseController> courses = new ArrayList<CourseController>();
@@ -53,10 +52,10 @@ public class Login {
      * @wbp.parser.entryPoint
      */
     public static void loginScreen(){
-        frmLoginMenu = new JFrame();
-        frmLoginMenu.setTitle("Login Menu");
-        frmLoginMenu.setBounds(300, 300, 600, 300);
-        frmLoginMenu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame = new JFrame();
+        frame.setTitle("Login Menu");
+        frame.setBounds(300, 300, 600, 300);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel contentPane = new JPanel(new GridLayout(0,2));
         JLabel username = new JLabel("Username: ");
@@ -85,7 +84,24 @@ public class Login {
         signIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                flag = 0;
                 login(userField,passField);
+                passField.setText("");
+                if (flag == 0) {
+                    int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.OK_CANCEL_OPTION);
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        if (tries < 2) {
+                            tries++;
+                        } else {
+                            int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.OK_CANCEL_OPTION);
+                            if (option2 == JOptionPane.OK_OPTION) {
+                                System.exit(0);
+                            }
+                        }
+                    }
+
+                }
             }
         });
         exit.addActionListener(new ActionListener() {
@@ -97,8 +113,8 @@ public class Login {
 
         contentPane.add(signIn);
         contentPane.add(exit);
-        frmLoginMenu.setContentPane(contentPane);
-        frmLoginMenu.setVisible(true);
+        frame.setContentPane(contentPane);
+        frame.setVisible(true);
     }
     public static void login(JTextField userField, JPasswordField passField) {
 
@@ -114,26 +130,11 @@ public class Login {
                         threads.add(t);
                         t.start();
                         userField.setText("");
-                    }
-                }
-
-            }
-        passField.setText("");
-        if (flag == 0) {
-            int option = JOptionPane.showConfirmDialog(null, "Invalid Username/Password", "Error", JOptionPane.DEFAULT_OPTION);
-
-            if (option == JOptionPane.OK_OPTION || option == JOptionPane.CLOSED_OPTION) {
-                if (tries < 2) {
-                    tries++;
-                } else {
-                    int option2 = JOptionPane.showConfirmDialog(null, "Maximum attempts reached", "Error", JOptionPane.DEFAULT_OPTION);
-                    if (option2 == JOptionPane.OK_OPTION || option == JOptionPane.CLOSED_OPTION) {
-                        System.exit(0);
+                        tries = 0;
                     }
                 }
             }
 
-        }
     }
 
     private static boolean noDuplicateUser(String username) {

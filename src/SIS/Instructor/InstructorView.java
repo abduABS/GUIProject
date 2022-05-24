@@ -44,11 +44,10 @@ public class InstructorView extends View{
     public void getView() {
         frame = new JFrame();
         frame.setBounds(300, 300, 600, 300);
-//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
         JPanel panel = new JPanel(new BorderLayout());
-        //JLabel label = new JLabel("Instructor");
-        //panel.add(label, BorderLayout.CENTER);
+
 
         JPanel btnPanel = new JPanel(new FlowLayout());
         JButton courseBtn = new JButton("Course(s) Info");
@@ -94,7 +93,6 @@ public class InstructorView extends View{
         JMenuItem nameItem = new JMenuItem("Change Name");
         nameItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.loadCourses();
                 control.changeName();
             }
         });
@@ -102,7 +100,6 @@ public class InstructorView extends View{
         JMenuItem passwordItem = new JMenuItem("Change Password");
         passwordItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //control.loadCourses();
                 control.changePass();
             }
         });

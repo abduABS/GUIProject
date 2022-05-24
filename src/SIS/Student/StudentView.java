@@ -16,6 +16,8 @@ public class StudentView extends View{
     private StudentModel model;
 
     private JFrame frame = null;
+    private JFrame current = null;
+    private JFrame next = null;
 
     private JTable table = null;
 
@@ -40,15 +42,44 @@ public class StudentView extends View{
         model = (StudentModel) control.getModel();
     }
 
+    public void getView(){
 
-    public void getView() {
-        frame = new JFrame();
+        frame = new JFrame("Welcome to the Student Portal");
+        JPanel contentPane = new JPanel(new GridLayout(0,1));
         frame.setBounds(300, 300, 600, 300);
-//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JButton currentSem = new JButton("View Current Semester Info");
+        JButton nextSem = new JButton("View Next Semester Info");
+        JLabel temp1 = new JLabel();
+        JLabel temp2 = new JLabel();
+
+        contentPane.add(temp1);
+        contentPane.add(currentSem);
+        contentPane.add(nextSem);
+        contentPane.add(temp2);
+
+        currentSem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentSemGUI();
+            }
+        });
+
+        nextSem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nextSemGUI();
+            }
+        });
+        frame.setContentPane(contentPane);
+        frame.setVisible(true);
+    }
+
+    public void currentSemGUI() {
+        current = new JFrame();
+        current.setBounds(300, 300, 600, 300);
 
         JPanel panel = new JPanel(new BorderLayout());
-        //JLabel label = new JLabel("Student");
-        //panel.add(label, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout());
         JButton loadBtn = new JButton("Load");
@@ -175,9 +206,13 @@ public class StudentView extends View{
         optionsMenu.addSeparator();
         optionsMenu.add(saveItem);
 
-        frame.setJMenuBar(menuBar);
-        frame.setContentPane(panel);
-        frame.setVisible(true);
+        current.setJMenuBar(menuBar);
+        current.setContentPane(panel);
+        current.setVisible(true);
+    }
+
+    public void nextSemGUI(){
+
     }
 
     public void setView() {
