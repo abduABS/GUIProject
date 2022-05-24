@@ -68,6 +68,7 @@ public class StudentController extends Controller {
 
     }
 
+    //To load student courses from a file
     public void loadCourses() {
         JFileChooser chooser = new JFileChooser("f:");
         int r = chooser.showOpenDialog(null);
@@ -113,6 +114,7 @@ public class StudentController extends Controller {
         }
     }
 
+    //For saving student's courses as a file
     public void saveCourses() {
         JFileChooser chooser = new JFileChooser("f:");
         int r = chooser.showSaveDialog(null);
@@ -132,6 +134,7 @@ public class StudentController extends Controller {
         }
     }
 
+    //For adding course to a student
     public void addCourse() {
         if (model.getRegisteredCourses().size() <= 5) {
             JTextField nameField = new JTextField();

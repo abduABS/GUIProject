@@ -174,6 +174,7 @@ public class CourseView extends View {
             }
         });
         table.setTableHeader(null);
+
         table.getColumnModel().getColumn(1).setPreferredWidth(200);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
         JScrollPane scrollPane = new JScrollPane(table);

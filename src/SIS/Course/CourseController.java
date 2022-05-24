@@ -69,46 +69,39 @@ public class CourseController {
             try {
                 scan = new Scanner(file);
                 scan.useDelimiter(";|\n");
-                int studentNum = scan.nextInt();
-                String cName = scan.next();
-                model.setName(cName);
-                String cNumber = scan.next();
-                model.setNumber(cNumber);
-                String cDepartment = scan.next();
-                model.setNumber(cDepartment);
-                String instructorId = scan.next();
-                InstructorController instructor = null;
-                for (int i = 0; i < Main.getUsers().size(); i++) {
-                    if (Main.getUsers().get(i).getModel().getId().equals(instructorId)) {
-                        instructor = (InstructorController) Main.getUsers().get(i);
-                    }
-                }
-                model.setInstructor((InstructorController) instructor);
-                int cCredits = scan.nextInt();
-                model.setCredits(cCredits);
-                CourseModel course = new CourseModel(cName,cNumber,cCredits,cDepartment,instructor);
-                Double cGrade = null;
-                for (int i = 0; i < studentNum; i++) {
-                    String studentId = scan.next();
-                    System.out.println("ID: " + studentId);
-                    for (int j = 0; j < Main.getUsers().size(); j++) {
-                        if (Main.getUsers().get(j).getModel().getId().equals(studentId)) {
-                           StudentController student = (StudentController) Main.getUsers().get(j);
-                           course.addStudent(student);
+                while(scan.hasNextLine()){
+                    int studentNum = scan.nextInt();
+                    String cName = scan.next();
+                    model.setName(cName);
+                    String cNumber = scan.next();
+                    model.setNumber(cNumber);
+                    String cDepartment = scan.next();
+                    model.setNumber(cDepartment);
+                    String instructorId = scan.next();
+                    InstructorController instructor = null;
+                    for (int i = 0; i < Main.getUsers().size(); i++) {
+                        if (Main.getUsers().get(i).getModel().getId().equals(instructorId)) {
+                            instructor = (InstructorController) Main.getUsers().get(i);
                         }
                     }
-                    cGrade = scan.nextDouble();
-                    course.getGrades().add(cGrade);
+                    model.setInstructor((InstructorController) instructor);
+                    int cCredits = scan.nextInt();
+                    model.setCredits(cCredits);
+                    CourseModel course = new CourseModel(cName,cNumber,cCredits,cDepartment,instructor);
+                    Double cGrade = null;
+                    for (int i = 0; i < studentNum; i++) {
+                        String studentId = scan.next();
+                        System.out.println("ID: " + studentId);
+                        for (int j = 0; j < Main.getUsers().size(); j++) {
+                            if (Main.getUsers().get(j).getModel().getId().equals(studentId)) {
+                                StudentController student = (StudentController) Main.getUsers().get(j);
+                                course.addStudent(student);
+                            }
+                        }
+                        cGrade = scan.nextDouble();
+                        course.getGrades().add(cGrade);
+                    }
                 }
-
-                System.out.println(course.getGrades().size());
-                System.out.println(course.getStudents().size());
-                for(int i =0; i < course.getStudents().size();i++){
-                    System.out.println(course.getStudents().get(i).getModel().getId());
-                }
-                setModel(course);
-                System.out.println(model.getGrades().size());
-                System.out.println(model.getStudents().size());
 
                 DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
                 tableModel.setRowCount(4);
@@ -121,22 +114,24 @@ public class CourseController {
                 header.add("Department");
                 header.add(model.getInstructor().getModel().getDepartment());
                 objects.add(header);
+
                 ArrayList<Object> header2 = new ArrayList<Object>();
                 header2.add("Term");
                 header2.add("Spring 2022");
                 objects.add(header2);
+
                 ArrayList<Object> header3 = new ArrayList<Object>();
                 header3.add("Course");
                 header3.add(model.getNumber());
                 header3.add(model.getName());
                 objects.add(header3);
+
                 ArrayList<Object> header4 = new ArrayList<Object>();
                 header4.add("ID");
                 header4.add("Name");
                 header4.add("Grade");
                 objects.add(header4);
 
-                //TODO: Add courses of a Instructor from a file
                 //Getting Courses Information
                 for (int i = 0; i < model.getStudents().size(); i++) {
                     ArrayList<Object> cTable = new ArrayList<Object>();
@@ -167,7 +162,8 @@ public class CourseController {
 
 
             } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
+                JOptionPane.showConfirmDialog(null, "File not found","Error",JOptionPane.DEFAULT_OPTION);
+
             } finally {
                 if (scan != null)
                     scan.close();
@@ -193,10 +189,10 @@ public class CourseController {
                     fw.print("/n" + model.getStudents().get(i).getModel().getId() + ";");
                     fw.print(model.getGrades().get(i));
                 }
-                //TODO: Save courses from an arraylist
                 fw.close();
             } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
+                JOptionPane.showConfirmDialog(null, "No course was found with the inputted number","Error",JOptionPane.DEFAULT_OPTION);
+
             }
         }
     }

@@ -75,21 +75,26 @@ public class InstructorController extends Controller{
 
     public void addCourse() {
         if (model.getCourses().size() <= 3) {
-            JTextField nameField = new JTextField();
             JTextField numberField = new JTextField();
-            JTextField hoursField = new JTextField();
-            Object[] panel = {"Course Name:", nameField};
+            Object[] panel = {"Course Number:", numberField};
             int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                for (int j = 0; j < Main.getUsers().size(); j++) {
+                int flag = 0;
+                for (int j = 0; j < Main.getCourses().size(); j++) {
                     if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
                         model.getCourses().add(Main.getCourses().get(j));
                         model.getCourses().get(j).getModel().setInstructor(this);
+                        flag = 1;
                     }
                 }
-                DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
-                tableModel.addRow(new Object[]{model.getCourses().get(model.getCourses().size() - 1).getModel().getName(), model.getCourses().get(model.getCourses().size() - 1).getModel().getNumber()});
-                view.getFrame().validate();
+                if(flag ==0){
+                    JOptionPane.showConfirmDialog(null, "No course exist with such number","Error",JOptionPane.DEFAULT_OPTION);
+                }
+                else{
+                    DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
+                    tableModel.addRow(new Object[]{model.getCourses().get(model.getCourses().size() - 1).getModel().getName(), model.getCourses().get(model.getCourses().size() - 1).getModel().getNumber()});
+                    view.getFrame().validate();
+                }
             }
         }
         else{
@@ -100,8 +105,7 @@ public class InstructorController extends Controller{
     public void changePass() {
         JTextField newField = new JPasswordField();
         JTextField confirmField = new JPasswordField();
-        Object[] panel = {"New Password:", newField,
-                "Confirm Password:", confirmField};
+        Object[] panel = {"New Password:", newField, "Confirm Password:", confirmField};
         int option = JOptionPane.showConfirmDialog(null, panel, "Change Password", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             if(newField.getText().equals(confirmField.getText())){

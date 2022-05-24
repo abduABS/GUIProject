@@ -178,7 +178,9 @@ public class InstructorView extends View{
             }
         });
         table.setTableHeader(null);
+        table.getColumnModel().getColumn(0).setPreferredWidth(200);
         table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        table.getColumnModel().getColumn(4).setPreferredWidth(150);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
 
