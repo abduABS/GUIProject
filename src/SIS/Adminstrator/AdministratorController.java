@@ -26,16 +26,16 @@ public class AdministratorController extends Controller{
         model = new AdministratorModel(name,id, username,password);
         view = new AdministratorView();
     }
-    public View view() {
-        return (AdministratorView)view;
+    public AdministratorView view() {
+        return view;
     }
 
-    public Model getModel() {
-        return (AdministratorModel)model;
+    public AdministratorModel getModel() {
+        return model;
     }
 
-    public void setModel() {
-
+    public void setModel(Model model) {
+        this.model = (AdministratorModel) model;
     }
 
 }

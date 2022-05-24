@@ -48,9 +48,7 @@ public class Login {
         updateAllUsers();
     }
 
-    /**
-     * @wbp.parser.entryPoint
-     */
+
     public static void loginScreen(){
         frame = new JFrame();
         frame.setTitle("Login Menu");
@@ -138,8 +136,7 @@ public class Login {
     }
 
     private static boolean noDuplicateUser(String username) {
-        for (Thread t :
-                threads) {
+        for (Thread t : threads) {
             if(t.getName().compareTo(username)==0) {
                 int option = JOptionPane.showConfirmDialog(null, "User already logged in to the system", "Error", JOptionPane.OK_CANCEL_OPTION);
                 return false;

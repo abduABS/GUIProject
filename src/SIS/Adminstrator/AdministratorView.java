@@ -31,7 +31,7 @@ public class AdministratorView extends View {
         }
         if (flag == 0) {
             JOptionPane.showConfirmDialog(null, "No user was found with the inputted ID", "Error", JOptionPane.DEFAULT_OPTION);
-
+            this.getView();
         }
     }
 

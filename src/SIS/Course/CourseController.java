@@ -69,6 +69,7 @@ public class CourseController {
             try {
                 scan = new Scanner(file);
                 scan.useDelimiter(";|\n");
+
                 while(scan.hasNextLine()){
                     int studentNum = scan.nextInt();
                     String cName = scan.next();

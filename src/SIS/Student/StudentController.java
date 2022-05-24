@@ -1,6 +1,7 @@
 package SIS.Student;
 
 import SIS.*;
+import SIS.Adminstrator.AdministratorModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -64,9 +65,11 @@ public class StudentController extends Controller {
         return (StudentModel) model;
     }
 
-    public void setModel() {
-
+    @Override
+    public void setModel(Model model) {
+        this.model = (StudentModel) model;
     }
+
 
     //To load student courses from a file
     public void loadCourses() {

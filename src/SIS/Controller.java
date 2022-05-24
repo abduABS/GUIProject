@@ -13,5 +13,5 @@ public abstract class Controller implements Runnable{
     }
 
     abstract public Model getModel();
-    abstract public void setModel();
+    abstract public void setModel(Model model);
 }

@@ -2,6 +2,7 @@ package SIS.Instructor;
 
 import SIS.Controller;
 import SIS.Main;
+import SIS.Model;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +49,11 @@ public class InstructorController extends Controller{
 
     public InstructorModel getModel() {
         return model;
+    }
+
+    @Override
+    public void setModel(Model model) {
+        this.model = (InstructorModel) model;
     }
 
     public void setModel() {

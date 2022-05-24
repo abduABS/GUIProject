@@ -129,10 +129,12 @@ public class StudentView extends View{
         header.add("Major");
         header.add(model.getMajor());
         objects.add(header);
+
         ArrayList<Object> header2 = new ArrayList<Object>();
         header2.add("Semester");
         header2.add("Spring 2022");
         objects.add(header2);
+
         ArrayList<Object> header3 = new ArrayList<Object>();
         header3.add("Courses");
         header3.add("Name");
