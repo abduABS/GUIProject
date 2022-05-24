@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class StudentController extends Controller {
 
+	int courseNum = 0;
     private boolean isAdmin = false;
     private StudentModel model;
     private StudentView view;
@@ -161,10 +162,10 @@ public class StudentController extends Controller {
                 }
 
                 if(flag == 0){
-                    JOptionPane.showConfirmDialog(null, "Course was not found", "Error", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showConfirmDialog(null, "Course was not found!", "Error", JOptionPane.DEFAULT_OPTION);
                 }
                 else if(flag == -1){
-                    JOptionPane.showConfirmDialog(null, "Course is full", "Error", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showConfirmDialog(null, "Course is full!", "Error", JOptionPane.DEFAULT_OPTION);
                 }
                 else{
                     DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
@@ -174,6 +175,50 @@ public class StudentController extends Controller {
                             model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getNumber(),
                             model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getCredits()});
                     tableModel.addRow(new Object[]{"", "", "", "GPA", model.getGPA()});
+                }
+
+                view.getFrame().validate();
+            }
+
+        } else {
+            JOptionPane.showConfirmDialog(null, "You cannnot register more than 5 courses", "Error", JOptionPane.DEFAULT_OPTION);
+        }
+    }
+    
+    public void addCourseNextSem() {
+        if (model.getRegisteredCourses().size() <= 7) {
+            JTextField nameField = new JTextField();
+            JTextField numberField = new JTextField();
+            JTextField hoursField = new JTextField();
+            Object[] panel = {"Course Number:", numberField};
+            int option = JOptionPane.showConfirmDialog(null, panel, "Add new Course", JOptionPane.OK_CANCEL_OPTION);
+            int flag =0;
+            if (option == JOptionPane.OK_OPTION) {
+                for (int j = 0; j < Main.getCourses().size(); j++) {
+                    if (Main.getCourses().get(j).getModel().getNumber().equals(numberField.getText())) {
+                        if(Main.getCourses().get(j).getModel().getStudents().size() < 20){
+                            model.getRegisteredCourses().add(Main.getCourses().get(j));
+                            model.getRegisteredCourses().get(j).getModel().addStudent(this);
+                            flag = 1;
+                        }
+                        else{
+                            flag = -1;
+                        }
+                    }
+                }
+
+                if(flag == 0){
+                    JOptionPane.showConfirmDialog(null, "Course was not found!", "Error", JOptionPane.DEFAULT_OPTION);
+                }
+                else if(flag == -1){
+                    JOptionPane.showConfirmDialog(null, "Course is full!", "Error", JOptionPane.DEFAULT_OPTION);
+                }
+                else{
+                	courseNum++;
+                    DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
+                    tableModel.addRow(new Object[]{courseNum, model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getName(),
+                            model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getNumber(),
+                            model.getRegisteredCourses().get(model.getRegisteredCourses().size() - 1).getModel().getCredits()});
                 }
 
                 view.getFrame().validate();
